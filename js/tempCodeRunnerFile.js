@@ -1,2 +1,2 @@
-function doNothing() {};
-console.log(doNothing() === undefined);
+const num = 12.2;
+console.log(Math.round(num));
