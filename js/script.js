@@ -420,47 +420,88 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Объекты, деструктуризация объектов
 
-const options = {
-    name: 'boroda',
-    width: 1024,
-    height: 1024,
-    colors: {
-        border: 'black',
-        bg: 'red'
-    },
-    makeTest: function() { // можно делать свои методы в объектах
-        console.log("Test");
-    }
-}
+// const options = {
+//     name: 'boroda',
+//     width: 1024,
+//     height: 1024,
+//     colors: {
+//         border: 'black',
+//         bg: 'red'
+//     },
+//     makeTest: function() { // можно делать свои методы в объектах
+//         console.log("Test");
+//     }
+// }
 
-options.makeTest();
+// options.makeTest();
 
-const {border, bg} = options.colors; // такая структура называется деструктуризацией (на будущее пригодится)
-console.log(border);
+// const {border, bg} = options.colors; // такая структура называется деструктуризацией (на будущее пригодится)
+// console.log(border);
 
-console.log(options.name);
+// console.log(options.name);
 
-delete options.name;
+// delete options.name;
 
-console.log(options);
+// console.log(options);
 
-for (let key in options) {
-    if(typeof(options[key]) === 'object'){
-        for (let i in options[key]){
-            console.log(`Свойство ${i} имеет значение ${options[key][i]}`)
-        }
-    } else {
-        console.log(`Свойство ${key} имеет значение ${options[key]}`)
-    }
-}
-console.log(options["colors"] ["border"]);
+// for (let key in options) {
+//     if(typeof(options[key]) === 'object'){
+//         for (let i in options[key]){
+//             console.log(`Свойство ${i} имеет значение ${options[key][i]}`)
+//         }
+//     } else {
+//         console.log(`Свойство ${key} имеет значение ${options[key]}`)
+//     }
+// }
+// console.log(options["colors"] ["border"]);
 
 
-let counter = 0; // типа счетчик (чтобы узнать сколько свойств в объекте)
-for(let key in options){
-    counter++;
-}
-console.log(counter);
+// let counter = 0; // типа счетчик (чтобы узнать сколько свойств в объекте)
+// for(let key in options){
+//     counter++;
+// }
+// console.log(counter);
 
-console.log(Object.keys(options).length) // ну или более простой вариант метод Object.keys()
+// console.log(Object.keys(options).length) // ну или более простой вариант метод Object.keys()
+
+//////////////////////////////////////////////////////////////////////////////////////
+//массивы и псевдомассивы
+
+// const arr = [1, 62, 43, 4, 15, 6, 8];
+// //arr[99] = 0;
+// // console.log(arr.length); // СОБЕСЕДОВАНИЕ: свойство length состоит из ПОСЛЕДНЕГО индекса который есть в массиве + 1. Если сдетать так как в 470-471 строке то вывод будет [ 1, 2, 3, 4, 5, 6, 8, <92 empty items>, 0 ], а это нарушение логики! ТАК НИКОГДА НЕ ДЕЛАТЬ
+// // console.log(arr);
+
+
+// arr.sort(compareNum); // использует алгоритм быстрой сортировки
+// console.log(arr);
+
+// function compareNum(a, b) {
+//     return a - b;
+// }
+
+
+// arr.forEach(function(item, i, arr) { // более гибкий вариант перебора массива (можно круче настроить). forEach проходит по каждому элементу массива и применяет callback функцию к каждому элементу. Ф-ия может в себя принимать 3 аргумента: 1) тот элемент который мы перебтраем на данный момент (назвать можно как угодно. В моем случае item). 2) номер по порядку, индекс элемента, проще говоря. 3) ссылка на массив который перебираем
+//     console.log(`${i}: ${item} врутри массива ${arr}`);
+// })
+
+// // arr.pop(); // этот метод удаляеи последний элемент массива
+// // arr.push(10)// этот метод наоборот добавляет элемент 
+// // console.log(arr);
+
+// for (let i = 0; i < arr.length; i++){
+//     console.log(arr[i]);
+// }
+// console.log(" ");
+// for (let value of arr){ //for of работает только с массивоподобными объектами. Если написать for in то выведет индексы, а не значения. Обычно используют метод forEach, но если нужно использовать break/continue, то придется делать через for
+//     console.log(value);
+// }
+
+// const str = prompt("", "");
+// const products = str.split(", "); // превращает строку в массив. ", " - разделитель
+// products.sort(); // сортирует массив. Если массив из строчный элементов, то он отсортирует по алфавиту. Если массив из чисел, то надо писать ф-ию
+// console.log(products.join("; ")); // join наоборот превращает массив в строку "; " - разделитель
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
