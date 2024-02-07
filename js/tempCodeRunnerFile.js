@@ -1,13 +1,20 @@
-const array = ["a", "b", "c"];
-const newArray = [...array]; // тут лежит новая копия array (только тут уже spread оператор (оператор разворота))
+const someString = 'This is some strange string';
 
-const q = {
-    one: 1,
-    two: 2
-};
+function reverse(str) {
+    if (typeof(str) !== 'string') {
+        return "Ошибка!";
+    }
+    // Самый оптимальный вариант решения
+    console.log(str.split('').reverse('').join(''));
+    
+    return str;
 
-const newQ = {...q}; // ну тоже самое и с объектами
-newQ.a = 50;
-newQ.b = "hehe21";
+    // Решение при помощи цикла
+    // let newStr = '';
+    // for (let i = str.length - 1; i >= 0; i--) {
+    //     newStr += str[i];
+    // }
+    // return newStr
+}
 
-console.log(newQ);
+reverse(someString);
