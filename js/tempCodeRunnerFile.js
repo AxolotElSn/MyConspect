@@ -1,20 +1,41 @@
-const someString = 'This is some strange string';
+const shoppingMallData = {
+    shops: [
+        {
+            width: 10,
+            length: 5
+        },
+        {
+            width: 15,
+            length: 7
+        },
+        {
+            width: 20,
+            length: 5
+        },
+        {
+            width: 8,
+            length: 10
+        }
+    ],
+    height: 5,
+    moneyPer1m3: 30,
+    budget: 50000,
+    isBudgetEnough: function(data) {
+        let storeArea = 0;
+        let volume = 0;
 
-function reverse(str) {
-    if (typeof(str) !== 'string') {
-        return "Ошибка!";
+        data.shops.forEach(shop => {
+            storeArea += shop.width * shop.length;
+        });
+
+        volume = data.height * storeArea;
+
+        if(data.budget - (volume * data.moneyPer1m3) >= 0){
+            return 'Бюджета достаточно';
+        } else {
+            return 'Бюджета недостаточно';
+        }
     }
-    // Самый оптимальный вариант решения
-    console.log(str.split('').reverse('').join(''));
-    
-    return str;
-
-    // Решение при помощи цикла
-    // let newStr = '';
-    // for (let i = str.length - 1; i >= 0; i--) {
-    //     newStr += str[i];
-    // }
-    // return newStr
 }
-
-reverse(someString);
+shoppingMallData.isBudgetEnough(shoppingMallData);
+console.log(shoppingMallData.isBudgetEnough(shoppingMallData));
