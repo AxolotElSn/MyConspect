@@ -913,5 +913,135 @@
 // console.log(shoppingMallData.isBudgetEnough(shoppingMallData));
 
 ///////////////////////////////////////////////////////////////////////////////////
-//
+//точки останова и консоль разработчика
 
+// const arr = [1, 14, 4, 30, 54]
+//       sorted = arr.sort(compareNum);
+
+// function compareNum(a, b){ // нужно для правильной сортивовки. Т. к. метод sort() сортирует как строки, а не числа
+//     return a - b; // Когда вы передаете функцию в метод sort() массива, она используется для определения порядка сортировки элементов массива. В случае, когда вы используете функцию сравнения вида return a - b, это говорит методу sort(), чтобы сравнивать элементы массива как числа
+// }
+
+// console.log(sorted);
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// динамическая типизация
+
+// // To string
+
+// // 1)
+
+// console.log(typeof(String(null)));
+
+// // 2) конкатенация - сложение строки с чем-то. В нашем случае с числом
+
+// console.log(typeof(5 + '')); // при сложении со строкой мы всегда получаем строку
+
+// const num = 5;
+// console.log("https://vk.com/catalog/" + num); // пример
+
+// const fontSize = 26 + 'px'; // пример
+
+// // To number
+
+// //1)
+
+// console.log(typeof(Number('4')));
+
+// // 2)
+
+// console.log(typeof(+'5'));
+
+// // 3)
+
+// console.log(typeof(parseInt("15px", 10))) // 10 это 10чная система счисления
+
+
+// let answ = +prompt("Hello", "")
+
+// // To boolean
+
+// // 1)
+
+// // 0, '', null, undefined, NaN; - это все false
+
+// let switcher = null;
+
+// if (switcher){
+//     console.log('Working...'); // не выполнится
+// }
+
+// switcher = 1;
+
+// if (switcher){
+//     console.log('Working...'); // выполнится т. к. switcher не null
+// }
+
+// // 2)
+
+// console.log(typeof(Boolean('4')));
+
+// // 3)
+
+// console.log(typeof(!!"3142132")); // - boolean
+
+//////////////////////////////////////////////////////////////////////////////////////
+// замыкание и лексическое окружение
+
+// let number = 5; debugger
+
+// function logNumber() {
+//     console.log(number); debugger // 6
+// }
+
+// number = 6;
+
+// logNumber(); debugger
+
+
+// function createCounter() {
+//     let counter = 0;
+
+//     const myFunction = function() {
+//         counter = counter + 1;
+//         return counter;
+//     }
+
+//     return myFunction;
+// }
+
+// const increment = createCounter(); // по сути мы в increment кладем ф-ию myFunction
+// const c1 = increment();
+// const c2 = increment();
+// const c3 = increment();
+
+// console.log(c1, c2, c3);
+
+// /////
+
+// for (let i = 0; i < 9; i++){
+//     for(let j = 0; j < 9; j++){
+//         let num = 3;
+//     } //СОБЕСЕДОВАНИЕ ВОПРОС:
+//     console.log(num); // Почему тут мы не можем обратиться к num? Полтому что num существует только внутири фигурных скобок которые от for(j)
+// }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// это тест
+
+function foo(a,b) {
+    const [first] = a;
+    const {eng} = b;
+ 
+    console.log(a);
+
+    return `${first} ${eng}`;
+}
+
+const result = foo(['Hello', 'Привет'], {ru: 'Мир', eng: 'World'})
+console.log(result);
+
+
+let time = '';
+5 > 3 || 2 ? time = 'Day' : time = 'Night' 
+console.log(time); // Day
