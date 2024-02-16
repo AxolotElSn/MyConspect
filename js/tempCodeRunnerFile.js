@@ -1,3 +1,42 @@
-let time = '';
-5 > 3 || 2 ? time = 'Day' : time = 'Night' 
-console.log(time);
+const restorantData = {
+    menu: [
+        {
+            name: 'Salad Caesar',
+            price: '14$'
+        },
+        {
+            name: 'Pizza Diavola',
+            price: '9$'
+        },
+        {
+            name: 'Beefsteak',
+            price: '17$'
+        },
+        {
+            name: 'Napoleon',
+            price: '7$'
+        }
+    ],
+    waitors: [
+        {name: 'Alice', age: 22}, {name: 'John', age: 24}
+    ],
+    averageLunchPrice: '20$',
+    openNow: true
+};
+
+function isOpen(prop) {
+    let answer = '';
+    prop ? answer = 'Открыто' : answer = 'Закрыто';
+
+    return answer;
+}
+
+console.log(isOpen(restorantData.openNow))
+
+function isAverageLunchPriceTrue(fDish, sDish, average) {
+    if (+fDish.price.slice(0, -1) + (sDish.price) < average) {
+        return 'Цена ниже средней';
+    } else {
+        return 'Цена выше средней';
+    }
+}
