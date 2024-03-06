@@ -1,3 +1,5 @@
+// события и их обработчики
+
 const btn = document.querySelectorAll('button'),
       overlay = document.querySelector('.overlay');
 
