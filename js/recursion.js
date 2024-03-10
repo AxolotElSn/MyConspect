@@ -58,6 +58,13 @@ let students = {
             name: 'Sam',
             progress: 10
         }],
+
+        semi: { // рекурсия будет работать с таким объектом, а итреративный метод - нет
+            students: [{
+                name: 'Test',
+                progress: 100
+            }]
+        }
     }
 };
 
@@ -87,7 +94,47 @@ function getTotalProgressByIreration(data) {
     return total / students;
 }
 
-console.log(getTotalProgressByIreration(students));
+// console.log(getTotalProgressByIreration(students));
 
 
-// остановился на 25 минуте
+function getTotalByRecyrsion(data) {
+    if (Array.isArray(data)) {
+        let total = 0;
+        
+        for (let i = 0; i < data.length; i++){
+            total += data[i].progress;
+        }
+
+        return [total, data.length] // массив для того чтоб ф-ия могла вернуть сразу 2 значения (студенты и проргесс)
+    } else {
+        let total = [0, 0]; // прогресс, студенты
+
+        for (let subData of Object.values(data)){
+            const subDataArr = getTotalByRecyrsion(subData);
+            total[0] += subDataArr[0]; // прогресс
+            total[1] += subDataArr[1]; // студенты
+        }
+        return total;
+    }
+}
+
+const result = getTotalByRecyrsion(students);
+
+console.log(result[0] / result[1]);
+
+// 3 - задача на рекурсию которуб могут дать на собесе
+
+function calcFactorial (num) {
+
+    if(typeof(num) !== 'number'){
+        return "Error";
+    }
+
+    if (num >= 1){
+        return num * calcFactorial(num - 1);
+    } else {
+        return 1;
+    }
+}
+
+console.log(calcFactorial(5));
