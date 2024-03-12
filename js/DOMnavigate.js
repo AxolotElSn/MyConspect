@@ -1,3 +1,5 @@
+"use strict";
+
 // Навигация по DOM - элементам, data атрибуты, претмущество for/of
 
 // console.log(document.body);

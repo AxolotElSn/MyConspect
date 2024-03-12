@@ -1,3 +1,5 @@
+"use strict";
+
 // события и их обработчики
 
 const btn = document.querySelectorAll('button'),
