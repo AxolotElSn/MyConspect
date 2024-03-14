@@ -15,5 +15,5 @@ function loadScript(src) {
     document.body.append(script);
 }
 
-loadScript("js/test/test.js");
-loadScript("js/test/some.js");
+loadScript("../js/test/test.js");
+loadScript("../js/test/some.js");
