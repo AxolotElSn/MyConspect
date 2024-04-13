@@ -1,18 +1,28 @@
-const myAwesomeDB = {
-    movies: [],
-    actors: [],
-    // idd: 123 // id не должен менятся
-    [Symbol("idd")]: 123,
-    [Symbol.for("test2")]: 555
+'use strict';
+
+const user = {
+    name: 'Alex',
+    surname: 'Oelov',
+    showMyPublicData: function() {
+        console.log(`${this.name} ${this.surname}`);
+    }
+}
+Object.defineProperty(user, 'birthday', {value: prompt('Date?'), writable: false, enumerable: true, configurable: true});
+console.log(Object.getOwnPropertyDescriptor(user, 'birthday')); // так делаем чтоб дату рождения нельзя было поменять
+
+
+
+console.log(Object.getOwnPropertyDescriptor(user, 'name')); // так смотрим флаги. В скобках первай аргумент это объект, второй - свойство, флаги которого хотим посмотреть
+Object.defineProperty(user, 'name', {writable: false}); // так изменить флаги. Тут тоже самое, третий аргумент - флаги которые меняем. Так же с помощью defineProperty() мы можем создавать новые свойства, если указать такое которого еще нет в объекте
+// user.name = 'ahahaha'; // ошибка. Свойство только для чтения
+
+
+
+Object.defineProperty(user, 'showMyPublicData', {enumerable: false}); // так делаем если не хотим чотб выводилисб методы
+for (let key in user){
+    console.log(key);
 }
 
-// сторонний код библиотеки
 
-myAwesomeDB.idd = '5455748674'; // допустим что мы меняем id но мы не должны это делать
 
-console.log(myAwesomeDB["idd"]); // 5455748674
-console.log(myAwesomeDB); // { movies: [], actors: [], idd: '5455748674', [Symbol(idd)]: 123 }
-
-myAwesomeDB.test2 = 987;
-console.log(myAwesomeDB)
-console.log(myAwesomeDB[Symbol.for('test2')]);
+console.log(Object.getOwnPropertyDescriptor(Math, 'PI'));

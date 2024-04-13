@@ -1,5 +1,7 @@
 'use strict';
 
+//тип данных symbol
+
 // let id = Symbol('id');
 
 const obj = {
