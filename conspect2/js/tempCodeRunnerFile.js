@@ -1,15 +1,17 @@
-'use strict';
+const shops = [
+    {rice: 500},
+    {oil: 200},
+    {bread: 50}
+];
 
-const user = {
-    name: 'Alex',
-    surname: 'Orlov',
-    showMyPublicData: function() {
-        console.log(`${this.name} ${this.surname}`);
-    }
-}
+const budget = [5000, 15000, 25000];
 
-for (const key in user) {
-    console.log(user[key]);
-}
+const map = new Map([
+    [{paper: 400}, 8000]
+]);
 
-const arr = ['b', 'a', 'c']
+shops.forEach((shop, i) => {
+    map.set(shop, budget[i]); // set позволяет сопоставить значения shop и budget друг с другом
+})
+
+console.log(map);
