@@ -234,6 +234,7 @@ a {
 
 .tabheader__item_active {
     color: #000;
+    text-decoration: underline;
     font-size: 22px;
     font-weight: 700
 }
