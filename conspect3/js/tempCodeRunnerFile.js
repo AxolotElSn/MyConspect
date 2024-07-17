@@ -1,9 +1,7 @@
-let start = new Date();
+'use strict';
 
-for (let i = 0; i < 100000; i++) {
-    let some = i ** 3; // ** возведение в степень
+function showThis() {
+    console.log(this);
 }
 
-let end = new Date();
-
-console.log(`Цикл отработал за ${end - start} миллисекунд`);
+showThis();
