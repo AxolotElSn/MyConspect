@@ -26,8 +26,8 @@ class ColoredRectangleWithText extends Rectangle { // extends - наследов
 
 // 2)
 const div = new ColoredRectangleWithText(25, 10, 'ahaha', 'red');
-div.showMyProops()
-console.log(div.calcArea);
+div.showMyProops() // Текст: ahaha, цвет: red
+console.log(div.calcArea()); // 250
 
 // 1) тут экземпляр
 const square = new Rectangle(10, 20); // в square теперь лежит объект со свойствами height и width и методом calcArea() (напоминание с прошлого урока)
