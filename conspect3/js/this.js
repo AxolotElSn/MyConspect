@@ -32,7 +32,7 @@
 
 // 3 пример
 
-// function User(name, id) { // ф-ия - конструктор
+// function User(name, id) { // ф-ия - конструктор по сути мы создали новый объект при помощи this и записывапем туда свойства с new User()
 //     this.name = name;
 //     this.id = id;
 //     this.human = true;
