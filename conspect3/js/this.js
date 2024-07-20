@@ -41,7 +41,7 @@
 //     }
 // }
 
-// let alex = new User('Alex', 21);
+// let alex = new User('Alex', 21); // тут теперь лежит объект (в переменной alex), со свойствами name, id, human, hello
 // alex.hello();
 
 // 4 пример
