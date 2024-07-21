@@ -161,12 +161,13 @@ window.addEventListener('DOMContentLoaded', () => {
     // используем классы для карточек
 
     class MenuCard {
-        constructor(src, alt, title, descr, prise, parentSelector) {
+        constructor(src, alt, title, descr, prise, parentSelector, ...classes) {
             this.src = src;
             this.alt = alt;
             this.title = title;
             this.descr = descr;
             this.prise = prise;
+            this.classes = classes;
             this.parent = document.querySelector(parentSelector); // то куда мы пушим наш элемент
             this.transfer = 27;
             this.cangeToUAH();
@@ -178,16 +179,22 @@ window.addEventListener('DOMContentLoaded', () => {
 
         render() {
             const element = document.createElement('div');
+
+            if (this.classes.length === 0) { // Проверка если забыли написать дефолтный класс
+                this.element = 'menu__item';
+                element.classList.add(this.element);
+            } else {
+                this.classes.forEach(className => element.classList.add(className)); // перебираем массив rest оператора чтоб могли добавдять классы в dom елементы просто написав их в MenuCard
+            }
+
             element.innerHTML = `
-                <div class="menu__item">
-                    <img src=${this.src} alt=${this.alt}>
-                    <h3 class="menu__item-subtitle">${this.title}</h3>
-                    <div class="menu__item-descr">${this.descr}</div>
-                    <div class="menu__item-divider"></div>
-                    <div class="menu__item-price">
-                        <div class="menu__item-cost">Цена:</div>
-                        <div class="menu__item-total"><span>${this.prise}</span> грн/день</div>
-                    </div>
+                <img src=${this.src} alt=${this.alt}>
+                <h3 class="menu__item-subtitle">${this.title}</h3>
+                <div class="menu__item-descr">${this.descr}</div>
+                <div class="menu__item-divider"></div>
+                <div class="menu__item-price">
+                    <div class="menu__item-cost">Цена:</div>
+                    <div class="menu__item-total"><span>${this.prise}</span> грн/день</div>
                 </div>
             `;
             this.parent.append(element); // в конец родителя ставим наш элемент
@@ -197,13 +204,16 @@ window.addEventListener('DOMContentLoaded', () => {
     // const div = new MenuCard();
     // div.render();
 
-    new MenuCard( // получается записываем в том порядке в каком у нас записаны свойства в конструкторе
+    new MenuCard( // получается записываем в том порядке в каком у нас записаны dom елементы
         "img/tabs/vegy.jpg",
         "vegy",
         'Меню "Фитнес"',
         'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
         9, // это доллар
-        '.menu .container' // родитель, куда вставляем элемент
+        '.menu .container', // родитель, куда вставляем элемент
+        'menu__item',
+        'big'
+
     ).render(); // можно записать так, но так можно только если нам нужно использовать этот объект только тут
 
     new MenuCard(
@@ -212,7 +222,9 @@ window.addEventListener('DOMContentLoaded', () => {
         'Меню “Премиум”',
         'В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
         20,
-        '.menu .container'
+        '.menu .container',
+        'menu__item',
+        'big' // можно теперь просто добавлять сколько угодно классов написав их сюда благодаря rest оператору
     ).render();
 
     new MenuCard(
@@ -221,7 +233,9 @@ window.addEventListener('DOMContentLoaded', () => {
         'Меню "Постное"',
         'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
         16,
-        '.menu .container'
+        '.menu .container',
+        'menu__item',
+        'big'
     ).render();
 
 });
