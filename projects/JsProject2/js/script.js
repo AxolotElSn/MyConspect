@@ -146,7 +146,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // const modalTimerId = setTimeout(openModal, 5000);
+    const modalTimerId = setTimeout(openModal, 5000);
 
     function showModalByScroll() {
         if (window.scrollY + document.documentElement.clientHeight >= document.documentElement.scrollHeight -1) { // -1 ставить надо из-за бага. На некоторых мониторах может не открыться модальное окно
@@ -238,4 +238,62 @@ window.addEventListener('DOMContentLoaded', () => {
         'big'
     ).render();
 
+
+    // Forms
+
+    const forms = document.querySelectorAll('form');
+
+    const message = {
+        loading: 'Загрузка',
+        success: 'Спасибо, скоро мы с вами свяжемся',
+        failure: 'Что-то пошло не так'
+    }
+
+    forms.forEach (item => {
+        postData(item);
+    })
+
+    function postData(form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // отменяем стандартное поведение браузера. Эта команда должна быть первая в ajax запросах
+
+            const statusMessage = document.createElement('div');
+            statusMessage.classList.add('status');
+            statusMessage.textContent = message.loading;
+            form.append(statusMessage);
+
+            const request = new XMLHttpRequest();
+            request.open('POST', 'server.php');
+
+            request.setRequestHeader('Content-type', 'application/json'); // это прописываем если работаем с json форматом. Зависит от бек-енда
+            // request.setRequestHeader('Content-type', 'multipart/form-data'); // не прописываем потому что используем XMLHttpRequest + formData. Заголовок формируется автоматически
+            // formData - объект позволяющий быстро сформировать данные введеные с определенной формы. ВАЖНО когда мы используем XMLHttpRequest и formData - заголовок прописывать не нужно
+            const formData = new FormData(form); // важно чтоб в html у всего что может отправлять данные на сервер, напрмер input был атрибут name
+
+            //это прописываем если работаем с json форматом ---
+            const object = {};
+            formData.forEach (function (value, key) { // переписываем объект FormDatra в обычный объект
+                object[key] = value;
+            });
+
+            const json = JSON.stringify(object) // а тут уже обычный объект который FormData переделываем в json формат
+            request.send(json)
+            // ---
+
+            // request.send(formData);
+
+            request.addEventListener('load', () => {
+                if (request.status === 200) {
+                    console.log(request.response);
+                    statusMessage.textContent = message.success;
+                    form.reset(); // очищает форму
+                    setTimeout(() => {
+                        statusMessage.remove()
+                    }, 2000);
+                } else {
+                    statusMessage.textContent = message.failure;
+                }
+            });
+        });
+    }
 });
