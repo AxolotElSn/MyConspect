@@ -257,7 +257,7 @@ window.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', (e) => {
             e.preventDefault(); // отменяем стандартное поведение браузера. Эта команда должна быть первая в ajax запросах
 
-            const statusMessage = document.createElement('div');
+            const statusMessage = document.createElement('div'); // создаем форму которая показывает статус отправки
             statusMessage.classList.add('status');
             statusMessage.textContent = message.loading;
             form.append(statusMessage);
