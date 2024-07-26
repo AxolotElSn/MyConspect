@@ -252,7 +252,7 @@ window.addEventListener('DOMContentLoaded', () => {
     })
 
     function postData(form) {
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', (e) => {  // событие срабатывающее на все что отправляет данные
             e.preventDefault(); // отменяем стандартное поведение браузера. Эта команда должна быть первая в ajax запросах
 
             const statusMessage = document.createElement('img');
@@ -283,7 +283,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
             // request.send(formData);
 
-            request.addEventListener('load', () => { // событие срабатывающее на все что отправляет данные
+            request.addEventListener('load', () => { // возникает при завершении запроса
                 if (request.status === 200) {
                     console.log(request.response);
                     showThanksModal(message.success);
