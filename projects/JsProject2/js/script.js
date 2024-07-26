@@ -111,8 +111,7 @@ window.addEventListener('DOMContentLoaded', () => {
     //modal-window
 
     const modalTrigger = document.querySelectorAll('[data-modal]'),
-          modal = document.querySelector('.modal'),
-          modalCloseBtn = document.querySelector('[data-close]');
+          modal = document.querySelector('.modal');
 
     function openModal() {
         modal.classList.add('show');
@@ -132,10 +131,9 @@ window.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = '';
     }
 
-    modalCloseBtn.addEventListener('click', closeModal)
 
     modal.addEventListener('click', (e) => { // окно закроется при клике на крестик
-        if (e.target === modal) {
+        if (e.target === modal || e.target.getAttribute('data-close') == '') { // если есть дата атрибут data-close на элементе и мы на него кликаем, то закрываем окно (этот атрибут есть на крестике). Это сделали ля того чтоб событие работало на динамически созданных элементах
             closeModal();
         }
     });
@@ -146,7 +144,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const modalTimerId = setTimeout(openModal, 5000);
+    const modalTimerId = setTimeout(openModal, 50000);
 
     function showModalByScroll() {
         if (window.scrollY + document.documentElement.clientHeight >= document.documentElement.scrollHeight -1) { // -1 ставить надо из-за бага. На некоторых мониторах может не открыться модальное окно
@@ -244,7 +242,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const forms = document.querySelectorAll('form');
 
     const message = {
-        loading: 'Загрузка',
+        loading: 'img/form/spinner.svg',
         success: 'Спасибо, скоро мы с вами свяжемся',
         failure: 'Что-то пошло не так'
     }
@@ -257,10 +255,13 @@ window.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', (e) => {
             e.preventDefault(); // отменяем стандартное поведение браузера. Эта команда должна быть первая в ajax запросах
 
-            const statusMessage = document.createElement('div'); // создаем форму которая показывает статус отправки
-            statusMessage.classList.add('status');
-            statusMessage.textContent = message.loading;
-            form.append(statusMessage);
+            const statusMessage = document.createElement('img');
+            statusMessage.src = message.loading;
+            statusMessage.style.cssText = `
+                display: block;
+                margin: 0 auto;
+            `;
+            form.insertAdjacentElement('afterend', statusMessage)
 
             const request = new XMLHttpRequest();
             request.open('POST', 'server.php');
@@ -282,18 +283,42 @@ window.addEventListener('DOMContentLoaded', () => {
 
             // request.send(formData);
 
-            request.addEventListener('load', () => {
+            request.addEventListener('load', () => { // событие срабатывающее на все что отправляет данные
                 if (request.status === 200) {
                     console.log(request.response);
-                    statusMessage.textContent = message.success;
+                    showThanksModal(message.success);
                     form.reset(); // очищает форму
-                    setTimeout(() => {
-                        statusMessage.remove()
-                    }, 2000);
+                    statusMessage.remove();
                 } else {
-                    statusMessage.textContent = message.failure;
+                    showThanksModal(message.failure);
                 }
             });
         });
+    }
+
+    // красивое оповещение пользователя
+
+    function showThanksModal(message) {
+        const permModalDialog = document.querySelector('.modal__dialog');
+
+        permModalDialog.classList.add('hide'); // получается мы скрываем изначальный modal__dialog и добавляем такой же, но с другой версткой
+        openModal();
+
+        const thanksModal = document.createElement('div'); // обертка
+        thanksModal.classList.add('modal__dialog');
+        thanksModal.innerHTML = `
+        <div class="modal__content">
+            <div class="modal__close" data-close>×</div>  <!-- Напрминание: data-атрибуты это штукенция позволяющая хранить доп информацию чтоб работать с элементом в js --!>
+            <div class="modal__title">${message}</div>
+        </div>
+        `;
+
+        document.querySelector('.modal').append(thanksModal);
+        setTimeout(() => {
+            thanksModal.remove();
+            permModalDialog.classList.add('show');
+            permModalDialog.classList.remove('hide');
+            closeModal();
+        }, 4000)
     }
 });
