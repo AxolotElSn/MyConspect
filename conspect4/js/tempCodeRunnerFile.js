@@ -1,20 +1,19 @@
-'use strict';
-
-// json - набор пар ключ - значение (как в объекте). Главное правило что все строки должны быть в двойных ковычках
-
-const persone = {
-    name: 'Alex',
-    tel: '+79632343058',
-    parents: {
-        mom: 'Alena',
-        dad: 'Alexandr'
-    }
+const test = time => { // удобно если нужно одну и ту же операцию запускать через определенный промежуток времени
+    return new Promise(resolve => { // По сути мы Promise сделали универсальным и просто подставляем данные какие хотим в разных промежутках времени
+        setTimeout(() => {
+            resolve()
+        }, time);
+    });
 };
 
-// console.log(JSON.stringify(persone)); // stringify() переделывает в json формат для того чтоб мы могли отправить данные на сервер
-// console.log(JSON.parse(JSON.stringify(persone))); // parse делает ровно противоположное. ТО есть json формат переделывает в обычный для того чтоб мы уже могли в коде работать с данными которые придут с сервера
+// test(1000).then(() => console.log('1000 ms'));
+// test(2000).then(() => console.log('2000 ms'));
 
-const clone = JSON.parse(JSON.stringify(persone));
-clone.parents.mom = 'Ann';
-console.log(persone);
-console.log(clone);
+// Методы:
+// Promise.all([test(1000), test(2000)]).then(() => { // метод all принимает в себя массив с промисами. Смысл в том что этот метод ждет когда все промисы выполнятся
+//     console.log('all'); // выполнится если все промисы выполнятся
+// });
+
+Promise.race([test(10000), test(1000)]).then(() => { // метод race срабатывает когда сработает 
+    console.log('all'); // выполнится если все промисы выполнятся
+});
