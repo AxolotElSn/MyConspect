@@ -261,38 +261,53 @@ window.addEventListener('DOMContentLoaded', () => {
                 display: block;
                 margin: 0 auto;
             `;
-            form.insertAdjacentElement('afterend', statusMessage)
+            form.insertAdjacentElement('afterend', statusMessage) // ставит спинер (загрузка типа анимация) в конец элемента statusMessage
 
-            const request = new XMLHttpRequest();
-            request.open('POST', 'server.php');
+            // заменили на fetch (а это старый формат) const request = new XMLHttpRequest();
+            // тут тоже request.open('POST', 'server.php');
 
-            request.setRequestHeader('Content-type', 'application/json'); // это прописываем если работаем с json форматом. Зависит от бек-енда
+
+            // заменили на fetch (а это старый формат) request.setRequestHeader('Content-type', 'application/json'); // это прописываем если работаем с json форматом. Зависит от бек-енда
             // request.setRequestHeader('Content-type', 'multipart/form-data'); // не прописываем потому что используем XMLHttpRequest + formData. Заголовок формируется автоматически
             // formData - объект позволяющий быстро сформировать данные введеные с определенной формы. ВАЖНО когда мы используем XMLHttpRequest и formData - заголовок прописывать не нужно
             const formData = new FormData(form); // важно чтоб в html у всего что может отправлять данные на сервер, напрмер input был атрибут name
 
-            //это прописываем если работаем с json форматом ---
+            //это прописываем если работаем с json форматом - трансформация formdata в json формат
             const object = {};
             formData.forEach (function (value, key) { // переписываем объект FormDatra в обычный объект
                 object[key] = value;
             });
 
-            const json = JSON.stringify(object) // а тут уже обычный объект который FormData переделываем в json формат
-            request.send(json)
-            // ---
-
-            // request.send(formData);
-
-            request.addEventListener('load', () => { // возникает при завершении запроса
-                if (request.status === 200) {
-                    console.log(request.response);
-                    showThanksModal(message.success);
-                    form.reset(); // очищает форму
-                    statusMessage.remove();
-                } else {
-                    showThanksModal(message.failure);
+            fetch('server.php', { // при помощи fetch отправляем данные. ВАЖНО. Особенность fetch - промис который запускается при помощи fetch не перейдет в состояние "Отклонено" или "rejected" из-за ответа http который считается ошибкой (404, 500 и т.д.). Он все равно выполнится нормально, единственное что поменяется это status которое станет false. А будет ошибка связанная с http, если не будет сети
+                method: "POST",
+                // body: formData, если данные обычные. Не JSON
+                body: JSON.stringify(object), // переделываем formData в JSON
+                headers: {
+                    'Content-type': 'application/json'
                 }
-            });
+            })
+            .then(data => data.text()) // модифицируем данные котрые приходят от сервера
+            .then(data => { // data - те данные которые мы получаем из промиса, то есть те данные которые нам прислал сервер
+                    console.log(data); // ответ, то что получили от запроса
+                    showThanksModal(message.success);
+                    statusMessage.remove();
+            }).catch(() => {
+                showThanksModal(message.failure);
+            }).finally(() => {
+                form.reset(); // очищает форму
+            })
+            
+            // так было без fetch (можно удалить)
+            // request.addEventListener('load', () => { // возникает при завершении запроса
+            //     if (request.status === 200) {
+            //         console.log(request.response); // ответ, то что получили от запроса
+            //         showThanksModal(message.success);
+            //         form.reset(); // очищает форму
+            //         statusMessage.remove();
+            //     } else {
+            //         showThanksModal(message.failure);
+            //     }
+            // });
         });
     }
 
@@ -321,4 +336,6 @@ window.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }, 4000)
     }
+
+
 });
