@@ -65,7 +65,7 @@ const obj = {
 // const newArr = Object.entries(obj); // метод превращающий объект в двумерный массив (матрицу). Получаем массив с массивами
 // console.log(newArr); // [ [ 'alex', 'persone' ], [ 'ann', 'persone' ], [ 'dog', 'amimal' ], [ 'cat', 'animal' ] ]
 
-const newArr = Object.entries(obj)
+const newArr = Object.entries(obj) // можно запускать методы по цепочке
 .filter(item => item[1] === 'persone') // [ [ 'alex', 'persone' ], [ 'ann', 'persone' ] ]
 .map(item => item[0]); //[ 'alex', 'ann' ]
 
