@@ -1,19 +1,15 @@
-const test = time => { // удобно если нужно одну и ту же операцию запускать через определенный промежуток времени
-    return new Promise(resolve => { // По сути мы Promise сделали универсальным и просто подставляем данные какие хотим в разных промежутках времени
-        setTimeout(() => {
-            resolve()
-        }, time);
-    });
+const obj = {
+    alex: 'persone',
+    ann: 'persone',
+    dog: 'amimal',
+    cat: 'animal'
 };
 
-// test(1000).then(() => console.log('1000 ms'));
-// test(2000).then(() => console.log('2000 ms'));
+// const newArr = Object.entries(obj); // метод превращающий объект в двумерный массив (матрицу). Получаем массив с массивами
+// console.log(newArr); // [ [ 'alex', 'persone' ], [ 'ann', 'persone' ], [ 'dog', 'amimal' ], [ 'cat', 'animal' ] ]
 
-// Методы:
-// Promise.all([test(1000), test(2000)]).then(() => { // метод all принимает в себя массив с промисами. Смысл в том что этот метод ждет когда все промисы выполнятся
-//     console.log('all'); // выполнится если все промисы выполнятся
-// });
+const newArr = Object.entries(obj)
+.filter(item => item[1] === 'persone') // [ [ 'alex', 'persone' ], [ 'ann', 'persone' ] ]
+.map(item => item[0]);
 
-Promise.race([test(10000), test(1000)]).then(() => { // метод race срабатывает когда сработает 
-    console.log('all'); // выполнится если все промисы выполнятся
-});
+console.log(newArr);
