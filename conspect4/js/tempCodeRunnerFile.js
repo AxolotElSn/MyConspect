@@ -1,15 +1,34 @@
-const obj = {
-    alex: 'persone',
-    ann: 'persone',
-    dog: 'amimal',
-    cat: 'animal'
-};
+const films = [
+    {
+        name: 'Titanic',
+        rating: 9
+    },
+    {
+        name: 'Die hard 5',
+        rating: 5
+    },
+    {
+        name: 'Matrix',
+        rating: 8
+    },
+    {
+        name: 'Some bad film',
+        rating: 4
+    }
+];
 
-// const newArr = Object.entries(obj); // метод превращающий объект в двумерный массив (матрицу). Получаем массив с массивами
-// console.log(newArr); // [ [ 'alex', 'persone' ], [ 'ann', 'persone' ], [ 'dog', 'amimal' ], [ 'cat', 'animal' ] ]
 
-const newArr = Object.entries(obj)
-.filter(item => item[1] === 'persone') // [ [ 'alex', 'persone' ], [ 'ann', 'persone' ] ]
-.map(item => item[0]);
+function setFilmsIds(arr) {
+    return arr.map((film, i) => {
+        film.id = i;
+        return film;
+    })
+}
 
-console.log(newArr);
+const tranformedArray = setFilmsIds(films);
+
+function checkFilms(arr) {
+    return arr.every((i) => i.id || i.id === 0)
+}
+
+console.log(checkFilms(tranformedArray))
