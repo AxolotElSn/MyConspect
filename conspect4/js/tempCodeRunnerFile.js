@@ -1,34 +1,9 @@
-const films = [
-    {
-        name: 'Titanic',
-        rating: 9
-    },
-    {
-        name: 'Die hard 5',
-        rating: 5
-    },
-    {
-        name: 'Matrix',
-        rating: 8
-    },
-    {
-        name: 'Some bad film',
-        rating: 4
-    }
-];
-
-
-function setFilmsIds(arr) {
-    return arr.map((film, i) => {
-        film.id = i;
-        return film;
+fetch('https://jsonplaceholder.typicode.com/posts', { // этот объект должен содержать 2 обязательных свойства method и body. Он отвечает за настройки, которые мы будем задавать. И еще мы поменяли адрес в конце на posts
+        method: "POST", // вид запроса
+        body: JSON.stringify({name: 'Alex'}), // то что мы отправляем. Т. к. работаем с json то сразу перерабатываем объект в json формат
+        headers: {
+            'Content-type': 'application/json'
+        }
     })
-}
-
-const tranformedArray = setFilmsIds(films);
-
-function checkFilms(arr) {
-    return arr.every((i) => i.id || i.id === 0)
-}
-
-console.log(checkFilms(tranformedArray))
+      .then(response => response.json())
+      .then(json => console.log(json));

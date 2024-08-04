@@ -16,4 +16,4 @@
         }
     })
       .then(response => response.json())
-      .then(json => console.log(json));
+      .then(json => console.log(json)); // { name: 'Alex', id: 101 } (в этой бд 100 имен, мы запросили имя которого там нет, по этому id 101)
