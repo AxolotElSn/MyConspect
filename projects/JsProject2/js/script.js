@@ -202,40 +202,44 @@ window.addEventListener('DOMContentLoaded', () => {
     // const div = new MenuCard();
     // div.render();
 
-    new MenuCard( // получается записываем в том порядке в каком у нас записаны dom елементы
-        "img/tabs/vegy.jpg",
-        "vegy",
-        'Меню "Фитнес"',
-        'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
-        9, // это доллар
-        '.menu .container', // родитель, куда вставляем элемент
-        'menu__item',
-        'big'
+    const getResource = async (url) => { // ф-ия настраиыает наш запрос, посылает его на сервер и получает ответ и трансформирует его в json
+        const res = await fetch(url);
 
-    ).render(); // можно записать так, но так можно только если нам нужно использовать этот объект только тут
+        if(!res.ok){ // проверка на ошибки. Делаем потому что fetch не возвращает catch в случае ошибки
+            throw new Error(`Could not fetch ${url}, status ${res.status}`); // throw - это те ошибки которые пишутся нам в консоль. Error() - объект ошибок
+        }
 
-    new MenuCard(
-        "img/tabs/elite.jpg",
-        "elite",
-        'Меню “Премиум”',
-        'В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
-        20,
-        '.menu .container',
-        'menu__item',
-        'big' // можно теперь просто добавлять сколько угодно классов написав их сюда благодаря rest оператору
-    ).render();
+        return await res.json();
+    };
 
-    new MenuCard(
-        "img/tabs/post.jpg",
-        "post",
-        'Меню "Постное"',
-        'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
-        16,
-        '.menu .container',
-        'menu__item',
-        'big'
-    ).render();
+    getResource('http://localhost:3000/menu')
+        .then(data => {
+            data.forEach(({img, altimg, title, descr, price}) => { // перебираем все карточки и отрисовываем их. А так эе используем деструктуризацию объекта
+                new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+            })
+        });
 
+    // getResource('http://localhost:3000/menu') // еще вариант как можно сделать
+    //     .then(data => createCard(data));
+
+    // function createCard(data) {
+    //     data.forEach(({img, altimg, title, descr, price}) => {
+    //         const element = document.createElement('div');
+    //         element.classList.add('menu__item');
+    //         element.innerHTML = `
+    //         <img src=${img} alt=${altimg}>
+    //         <h3 class="menu__item-subtitle">${title}</h3>
+    //         <div class="menu__item-descr">${descr}</div>
+    //         <div class="menu__item-divider"></div>
+    //         <div class="menu__item-price">
+    //             <div class="menu__item-cost">Цена:</div>
+    //             <div class="menu__item-total"><span>${price}</span> грн/день</div>
+    //         </div>
+    //         `;
+
+    //         document.querySelector('.menu .container').append(element);
+    //     });
+    // }
 
     // Forms
 
@@ -248,10 +252,25 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     forms.forEach (item => {
-        postData(item);
-    })
+        bindPostData(item);
+    });
 
-    function postData(form) {
+    // async - говорит о том что в ы-ии будет какой-то асинхронный код
+    // await - дожидается результата и тоько потом позволяет коду идти дальше
+    // async и await всегда действуют в паре. Нельзя записать что-то одно
+    const postData = async (url, data) => { // ф-ия настраиыает наш запрос, посылает его на сервер и получает ответ и трансформирует его в json
+        const res = await fetch(url, { // если этого не сделать, то пока не придет результат в переменной res будет ничего и из-за этого будет ошиька. Нам необходимо дождаться результата запроса и по этому мы ставим await
+            method: "POST",
+            body: data,
+            headers: {
+                'Content-type': 'application/json'
+            }
+        });
+
+        return await res.json(); // мы не знаем сколько времени нам понадобится на перевод в обычный объект. По этому тоже ставим await
+    }
+
+    function bindPostData(form) {
         form.addEventListener('submit', (e) => {  // событие срабатывающее на все что отправляет данные
             e.preventDefault(); // отменяем стандартное поведение браузера. Эта команда должна быть первая в ajax запросах
 
@@ -273,20 +292,26 @@ window.addEventListener('DOMContentLoaded', () => {
             const formData = new FormData(form); // важно чтоб в html у всего что может отправлять данные на сервер, напрмер input был атрибут name
 
             //это прописываем если работаем с json форматом - трансформация formdata в json формат
-            const object = {};
-            formData.forEach (function (value, key) { // переписываем объект FormDatra в обычный объект
-                object[key] = value;
-            });
+            // const object = {};
+            // formData.forEach (function (value, key) { // переписываем объект FormDatra в обычный объект
+            //     object[key] = value;
+            // }); старый код
+            
+            // const obj = { a: 23, b: 50} пример
+            // console.log(Object.entries(obj)); // метод делающий из объекта массив с массивами [ [ 'a', 23 ], [ 'b', 50 ] ]
 
-            fetch('server.php', { // при помощи fetch отправляем данные. ВАЖНО. Особенность fetch - промис который запускается при помощи fetch не перейдет в состояние "Отклонено" или "rejected" из-за ответа http который считается ошибкой (404, 500 и т.д.). Он все равно выполнится нормально, единственное что поменяется это status которое станет false. А будет ошибка связанная с http, если не будет сети
-                method: "POST",
-                // body: formData, если данные обычные. Не JSON
-                body: JSON.stringify(object), // переделываем formData в JSON
-                headers: {
-                    'Content-type': 'application/json'
-                }
-            })
-            .then(data => data.text()) // модифицируем данные котрые приходят от сервера
+            const json = JSON.stringify(Object.fromEntries(formData.entries())); // То есть 1 действие - превращаем formData в массив массивов. 2 действие - преыращаем массив массивов в обычный объект fromEntries. 3 действие - превращаем все это добро в json
+
+            // fetch('server.php', { // при помощи fetch отправляем данные. ВАЖНО. Особенность fetch - промис который запускается при помощи fetch не перейдет в состояние "Отклонено" или "rejected" из-за ответа http который считается ошибкой (404, 500 и т.д.). Он все равно выполнится нормально, единственное что поменяется это status которое станет false. А будет ошибка связанная с http, если не будет сети
+            //     method: "POST",
+            //     // body: formData, если данные обычные. Не JSON
+            //     body: JSON.stringify(object), // переделываем formData в JSON
+            //     headers: {
+            //         'Content-type': 'application/json'
+            //     }
+            // }) старый код. Переписали в ф-ию postData
+
+            postData('http://localhost:3000/requests', json)
             .then(data => { // data - те данные которые мы получаем из промиса, то есть те данные которые нам прислал сервер
                     console.log(data); // ответ, то что получили от запроса
                     showThanksModal(message.success);
