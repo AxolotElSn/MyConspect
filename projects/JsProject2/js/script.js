@@ -212,11 +212,18 @@ window.addEventListener('DOMContentLoaded', () => {
         return await res.json();
     };
 
-    getResource('http://localhost:3000/menu')
+    // getResource('http://localhost:3000/menu')
+    //     .then(data => {
+    //         data.forEach(({img, altimg, title, descr, price}) => { // перебираем все карточки и отрисовываем их. А так эе используем деструктуризацию объекта
+    //             new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+    //         })
+    //     });
+
+    axios.get('http://localhost:3000/menu') // используем axios
         .then(data => {
-            data.forEach(({img, altimg, title, descr, price}) => { // перебираем все карточки и отрисовываем их. А так эе используем деструктуризацию объекта
+            data.data.forEach(({img, altimg, title, descr, price}) => { // data.data потому что мы обращаемся к объекту который мы получили. То есть обращаемся к свойству объекта data который мы получили из библиотеки
                 new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
-            })
+            });
         });
 
     // getResource('http://localhost:3000/menu') // еще вариант как можно сделать
@@ -362,8 +369,8 @@ window.addEventListener('DOMContentLoaded', () => {
         }, 4000)
     }
 
-    fetch('http://localhost:3000/menu')
-        .then(data => data.json())
-        .then(result => console.log(result));
+    // fetch('http://localhost:3000/menu')
+    //     .then(data => data.json())
+    //     .then(result => console.log(result));
 
 });
