@@ -494,6 +494,27 @@ window.addEventListener('DOMContentLoaded', () => {
         dots.push(dot); // помещаем точку в массив
     }
 
+    function deleteNotDigits (str) {
+        return +str.replace(/\D/g, '');
+    }
+
+    function styleDots (dot, index) { // делаем у текущего слайда не прозрачную точку. (-1 потому что на странице у нас нумерация начинается с 1, а в js с 0)
+        dot.forEach(dot => dot.style.opacity = '.5');
+        dot[index - 1].style.opacity = 1;
+    }
+
+    function Zero(slides, cur, index) { // ставим 0 в начале если число конкретного слайда меньше 10
+        if (slides.length < 10) {
+            cur.textContent = `0${index}`;
+        } else {
+            cur.textContent = index;
+        }
+    }
+
+    function Offset (wrapper, offset) { // перемещаем элемент по оси x. Минус используется потому что если элемент двигается влево то мы используем отрицательное значение, если вправо, то положительное. При нажатии на кнопки элементы прокручиваются справа на лево
+        wrapper.style.transform = `translateX(-${offset}px)`;
+    }
+
     if (slides.length < 10) { // ставим 0 в начале числа если оно менише 10 в общем количестве слайдов
         total.textContent = `0${slides.length}`; 
         current.textContent = `0${slideIndex}`;
@@ -503,38 +524,33 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     next.addEventListener('click', () => {
-        if (offset == +width.slice(0, width.length - 2) * (slides.length - 1)) { // slice() убирает px из ширины блока. Это для того чтоб мы работали с числом а не строкой. -1 как я понял нужен потому что у нас и так всегда 1 слайд отрисовывается, остается 3 прокручивать. А без минуса прокрутит 4 раза
+        if (offset == deleteNotDigits(width) * (slides.length - 1)) { // slice() убирает px из ширины блока (заменено на регулярное выражение). Это для того чтоб мы работали с числом а не строкой. -1 как я понял нужен потому что у нас и так всегда 1 слайд отрисовывается, остается 3 прокручивать. А без минуса прокрутит 4 раза
             offset = 0; // проверка на последний слайд. То есть если offset равен ширине когда в блоке последний слайд, мы offset присваиваем 0 - иначе говоря перемещаемся на первай слайд
         } else {
-            offset += +width.slice(0, width.length - 2); // иначе при каждом нажатии на кнопку прибавляем offset ширину слайда
+            offset += deleteNotDigits(width); // иначе при каждом нажатии на кнопку прибавляем offset ширину слайда
         }
 
-        slidesField.style.transform = `translateX(-${offset}px)`; // перемещаем элемент по оси x. Минус используется потому что если элемент двигается влево то мы используем отрицательное значение, если вправо, то положительное. При нажатии на кнопки элементы прокручиваются справа на лево
-        
+        Offset(slidesField, offset);
+
         if(slideIndex == slides.length) {
             slideIndex = 1;
         } else {
             slideIndex++;
         }
 
-        if (slides.length < 10) {
-            current.textContent = `0${slideIndex}`;
-        } else {
-            current.textContent = slideIndex;
-        }
+        Zero(slides, current, slideIndex);
 
-        dots.forEach(dot => dot.style.opacity = '.5');
-        dots[slideIndex - 1].style.opacity = 1; // делаем у текущего слайда не прозрачную точку. (-1 потому что на странице у нас нумерация начинается с 1, а в js с 0)
+        styleDots(dots, slideIndex);
     });
 
     prev.addEventListener('click', () => {
         if (offset == 0) { // Ну а тут наоборот. Если offset = 0, и мы нажимаем на кнопку, то offset становится равным той ширине при которой у нас отрисовывается последний слайд. То есть мы перемещаемся на последний слайд
-            offset = +width.slice(0, width.length - 2) * (slides.length - 1);
+            offset = deleteNotDigits(width) * (slides.length - 1);
         } else { // иначе отнимаем каждый раз ширину одного слайда
-            offset -= +width.slice(0, width.length - 2);
+            offset -= deleteNotDigits(width);
         }
 
-        slidesField.style.transform = `translateX(-${offset}px)`;
+        Offset(slidesField, offset);
     
         if(slideIndex == 1) { 
             slideIndex = slides.length;
@@ -542,14 +558,9 @@ window.addEventListener('DOMContentLoaded', () => {
             slideIndex--;
         }
 
-        if (slides.length < 10) { // ставим 0 в начале если число конкретного слайда меньше 10
-            current.textContent = `0${slideIndex}`;
-        } else {
-            current.textContent = slideIndex;
-        }
+        Zero(slides, current, slideIndex);
 
-        dots.forEach(dot => dot.style.opacity = '.5');
-        dots[slideIndex - 1].style.opacity = 1;
+        styleDots(dots, slideIndex);
     });
 
     dots.forEach(dot => {
@@ -557,18 +568,13 @@ window.addEventListener('DOMContentLoaded', () => {
             const slideTo = e.target.getAttribute('data-slide-to');
 
             slideIndex = slideTo;
-            offset = +width.slice(0, width.length - 2) * (slideTo - 1);
+            offset = deleteNotDigits(width) * (slideTo - 1);
 
-            slidesField.style.transform = `translateX(-${offset}px)`;
+            Offset(slidesField, offset);
 
-            if (slides.length < 10) {
-                current.textContent = `0${slideIndex}`;
-            } else {
-                current.textContent = slideIndex;
-            }
+            Zero(slides, current, slideIndex);
 
-            dots.forEach(dot => dot.style.opacity = '.5');
-            dots[slideIndex - 1].style.opacity = 1;
+            styleDots(dots, slideIndex);
         })
     })
     
