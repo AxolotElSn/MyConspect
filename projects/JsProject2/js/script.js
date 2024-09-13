@@ -214,7 +214,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // getResource('http://localhost:3000/menu')
     //     .then(data => {
-    //         data.forEach(({img, altimg, title, descr, price}) => { // перебираем все карточки и отрисовываем их. А так эе используем деструктуризацию объекта
+    //         data.forEach(({img, altimg, title, descr, price}) => { // перебираем все карточки и отрисовываем их. А так же используем деструктуризацию объекта
     //             new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
     //         })
     //     });
@@ -262,7 +262,7 @@ window.addEventListener('DOMContentLoaded', () => {
         bindPostData(item);
     });
 
-    // async - говорит о том что в ы-ии будет какой-то асинхронный код
+    // async - говорит о том что в ф-ии будет какой-то асинхронный код
     // await - дожидается результата и тоько потом позволяет коду идти дальше
     // async и await всегда действуют в паре. Нельзя записать что-то одно
     const postData = async (url, data) => { // ф-ия настраиыает наш запрос, посылает его на сервер и получает ответ и трансформирует его в json
@@ -291,6 +291,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
             // заменили на fetch (а это старый формат) const request = new XMLHttpRequest();
             // тут тоже request.open('POST', 'server.php');
+
+
+            // XMLHttpRequest – это встроенный в браузер объект, который даёт возможность делать HTTP-запросы к серверу без перезагрузки страницы.
 
 
             // заменили на fetch (а это старый формат) request.setRequestHeader('Content-type', 'application/json'); // это прописываем если работаем с json форматом. Зависит от бек-енда
