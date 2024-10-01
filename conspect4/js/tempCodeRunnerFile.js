@@ -1,28 +1,11 @@
-class HomeWork {
-    constructor(name, age) {
-        this.name = name;
-        this.age = age;
-    }
+const user = (function(){
+        const privat = function() { // Мы не имеем доступа к этой ф-ии т.к. она лежит внутри локальной области видимости
+            console.log('I am privat!1');
+        };
 
-    #surname = '';
+        return {
+            sayHello: privat
+        };
+}());
 
-    say() {
-        console.log(`Имя пользователя: ${this.name} ${this.#surname}, возраст ${this.age}`);
-    }
-
-    get surname() {
-        return this.#surname;
-    }
-
-    set surname(surname) {
-        if (typeof surname === 'string') {
-            this.#surname = surname;
-        } else {
-            console.log('Недопустимое значение')
-        }
-    }
-}
-
-const home = new HomeWork('Alex', 21);
-home.surname = 'Orlov';
-home.say();
+user.sayHello()
