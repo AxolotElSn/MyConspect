@@ -1,17 +1,28 @@
-// свойства кацессоры (геттеры сеттеры). Они позволяют работать с методом как с обычным свойством
-
-const persone = {
-    name: 'Alex',
-    age: 25,
-
-    get userAge() { // получает значение
-        return this.age;
-    },
-
-    set userAge(number) { // устонавливает значение
-        this.age = number;
+class HomeWork {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
     }
-};
 
-console.log(persone.userAge); // когда работаем с геттером то не ставим у метода ().
-console.log(persone.userAge = 30);
+    #surname = '';
+
+    say() {
+        console.log(`Имя пользователя: ${this.name} ${this.#surname}, возраст ${this.age}`);
+    }
+
+    get surname() {
+        return this.#surname;
+    }
+
+    set surname(surname) {
+        if (typeof surname === 'string') {
+            this.#surname = surname;
+        } else {
+            console.log('Недопустимое значение')
+        }
+    }
+}
+
+const home = new HomeWork('Alex', 21);
+home.surname = 'Orlov';
+home.say();
