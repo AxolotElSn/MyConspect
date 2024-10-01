@@ -1,3 +1,4 @@
+'use strict';
 // свойства кацессоры (геттеры сеттеры). Они позволяют работать с методом как с обычным свойством
 
 const persone = {
@@ -15,3 +16,4 @@ const persone = {
 
 console.log(persone.userAge); // когда работаем с геттером то не ставим у метода ().
 console.log(persone.userAge = 30);
+
