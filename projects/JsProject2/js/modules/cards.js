@@ -1,3 +1,5 @@
+import {getResource} from '../services/services';
+
 function cards () {
 // используем классы для карточек
 
@@ -45,17 +47,7 @@ class MenuCard {
 // const div = new MenuCard();
 // div.render();
 
-const getResource = async (url) => { // ф-ия настраиыает наш запрос, посылает его на сервер и получает ответ и трансформирует его в json
-    const res = await fetch(url);
-
-    if(!res.ok){ // проверка на ошибки. Делаем потому что fetch не возвращает catch в случае ошибки
-        throw new Error(`Could not fetch ${url}, status ${res.status}`); // throw - это те ошибки которые пишутся нам в консоль. Error() - объект ошибок
-    }
-
-    return await res.json();
-};
-
-// getResource('http://localhost:3000/menu')
+// getResource('http://localhost:3000/menu') // это тоже правильно. Только без библиотеки axios
 //     .then(data => {
 //         data.forEach(({img, altimg, title, descr, price}) => { // перебираем все карточки и отрисовываем их. А так же используем деструктуризацию объекта
 //             new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
@@ -92,4 +84,4 @@ axios.get('http://localhost:3000/menu') // используем axios
 // }
 }
 
-module.exports = cards;
+export default cards;

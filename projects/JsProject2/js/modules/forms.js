@@ -1,7 +1,10 @@
-function forms() {
+import {closeModal, openModal} from './modalWindow'; // импортируем те ф-ии из модальных окон
+import {postData} from '../services/services';
+
+function forms(formSelector ,modalTimerId) {
     // Forms
 
-    const forms = document.querySelectorAll('form');
+    const forms = document.querySelectorAll(formSelector);
 
     const message = {
         loading: 'img/form/spinner.svg',
@@ -16,17 +19,8 @@ function forms() {
     // async - говорит о том что в ф-ии будет какой-то асинхронный код
     // await - дожидается результата и тоько потом позволяет коду идти дальше
     // async и await всегда действуют в паре. Нельзя записать что-то одно
-    const postData = async (url, data) => { // ф-ия настраиыает наш запрос, посылает его на сервер и получает ответ и трансформирует его в json
-        const res = await fetch(url, { // если этого не сделать, то пока не придет результат в переменной res будет ничего и из-за этого будет ошиька. Нам необходимо дождаться результата запроса и по этому мы ставим await
-            method: "POST",
-            body: data,
-            headers: {
-                'Content-type': 'application/json'
-            }
-        });
 
-        return await res.json(); // мы не знаем сколько времени нам понадобится на перевод в обычный объект. По этому тоже ставим await
-    }
+    // postData в сервисах
 
     function bindPostData(form) {
         form.addEventListener('submit', (e) => {  // событие срабатывающее на все что отправляет данные
@@ -103,7 +97,7 @@ function forms() {
         const permModalDialog = document.querySelector('.modal__dialog');
 
         permModalDialog.classList.add('hide'); // получается мы скрываем изначальный modal__dialog и добавляем такой же, но с другой версткой
-        openModal();
+        openModal('.modal', modalTimerId);
 
         const thanksModal = document.createElement('div'); // обертка
         thanksModal.classList.add('modal__dialog');
@@ -119,7 +113,7 @@ function forms() {
             thanksModal.remove();
             permModalDialog.classList.add('show');
             permModalDialog.classList.remove('hide');
-            closeModal();
+            closeModal('.modal');
         }, 4000)
     }
 
@@ -129,4 +123,4 @@ function forms() {
 
 }
 
-module.exports = forms;
+export default forms;

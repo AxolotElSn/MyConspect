@@ -1,4 +1,4 @@
-function slider () {
+function slider ({container, slide, nextArrow, prevArrow, totalCounter, currentCounter, wrapper, filed}) {
     // slider
     // простой вариант
 
@@ -53,14 +53,14 @@ function slider () {
 
     // тот же слайдер, но более сложный вариант
 
-    const slides = document.querySelectorAll('.offer__slide'),
-          slider = document.querySelector('.offer__slider'), // для того чтоб можно было обратиться и сделать position relative (это весь блок слайда)
-          prev = document.querySelector('.offer__slider-prev'), // конопки назад и
-          next = document.querySelector('.offer__slider-next'), // вперед
-          total = document.querySelector('#total'), // сколько слайдов всего
-          current = document.querySelector('#current'), // на каком мы слайде сейчас
-          slidesWrapper = document.querySelector('.offer__slider-wrapper'), // общая обертка
-          slidesField = document.querySelector('.offer__slider-inner'), // обертка которая для прокрутки
+    const slides = document.querySelectorAll(slide),
+          slider = document.querySelector(container), // для того чтоб можно было обратиться и сделать position relative (это весь блок слайда)
+          prev = document.querySelector(prevArrow), // конопки назад и
+          next = document.querySelector(nextArrow), // вперед
+          total = document.querySelector(totalCounter), // сколько слайдов всего
+          current = document.querySelector(currentCounter), // на каком мы слайде сейчас
+          slidesWrapper = document.querySelector(wrapper), // общая обертка
+          slidesField = document.querySelector(filed), // обертка которая для прокрутки
           width = window.getComputedStyle(slidesWrapper).width; // примененные стили от css. получаем ширину
 
     let slideIndex = 1;
@@ -204,4 +204,4 @@ function slider () {
     })
 }
 
-module.exports = slider;
+export default slider;
