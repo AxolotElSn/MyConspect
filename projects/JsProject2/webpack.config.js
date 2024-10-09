@@ -13,5 +13,22 @@ module.exports = { // Объект настроек
 
   devtool: "source-map", // Тут инфа об исходниках. Тут довольно много режимов
 
-  module: {} // модули и их настройка
+  module: { // можули и их настройка
+    rules: [ 
+      {
+        test: /\.m?js$/, // находим js файлы
+        exclude: /(node_modules|bower_components)/, // файлы которые мы исключаем
+        use: { // что мы используем устанавливаем babel 1) npm install --save-dev @babel/core @babel/cli @babel/preset-env 2) npm install --save @babel/polyfill
+          loader: 'babel-loader', // loader - то что связывает webpack с чем-то еще (с бабелем например) надо установить npm i --save-dev babel-loader
+          options: { // опции которые мы используем
+            presets: [['@babel/preset-env', { // пресеты
+                debug: true, // позволяет прямо во время компиляции увидеть что там происходит
+                corejs: 3, // библиотека с полифилами (надо установить) npm i --save-dev core-js
+                useBuiltIns: "usage" // позволяет выбрать только те полифилы, которые нам нужны
+            }]]
+          }
+        }
+      }
+    ]
+  }
 };

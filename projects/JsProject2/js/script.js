@@ -1,5 +1,7 @@
 'use strict';
-
+// Полифил — это фрагмент кода, который позволяет использовать современную функциональность в более старых браузерах, которые не поддерживают ее по умолчанию
+require('es6-promise').polyfill(); // добавляем полифил (их все надо устанавливать)
+import 'nodelist-foreach-polyfill'; // по сути мы импортируем из node_modules
 // импорты должны стоять до обработчика
 import tabs from './modules/tabs';
 import modal from './modules/modalWindow';
