@@ -1,9 +1,9 @@
-try {
-    document.querySelector('.active').addEventListener('click', () => {
-        console.log('click');
-    });
-} catch(e) {
-    console.log(e)
+function* count(n) {
+    for (let i = 0; i < n; i++) {
+        yield i;
+    }
 }
- 
-console.log('Normal')
+
+for (let k of count(7)) {
+    console.log(k);
+}
