@@ -1,4 +1,4 @@
-import React from 'react'; // отвечает за работу с реактом, jsx и прочими внутренними вещами
+import React, {StrictMode} from 'react'; // отвечает за работу с реактом, jsx и прочими внутренними вещами
 import ReactDOM from 'react-dom/client'; // отвечает за работу с dom структурой
 import './index.css';
 import App from './App';
@@ -21,6 +21,8 @@ import {Header} from "./App";
 // это должно вызываться только один раз
 const root = ReactDOM.createRoot(document.getElementById('root')); // библиотека ReactDOM создаеьть как бы корневую часть приложения при помощи createRoot. Далее мы получаем со страницы тот элемент куда мы хотим поместить наше приожение. root.render отвечает за то чтоб отрисовать наше приложение
 root.render(
-  <App/>
+  <StrictMode> {/* строгий режим активирует больше проверок и предупреждения для своих потомков. Помогает обнаружить устаревшие и небезопастные конструкции */}
+      <App/>
+  </StrictMode>
 );
 
