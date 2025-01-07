@@ -7,6 +7,13 @@ import EmpolyeesAddForm from '../employees-add-form/employees-add-form';
 import './app.css';
 
 function App() {
+
+    const data = [ /* это мы имитируем что эти данные с сервера пришли */
+        {name: 'Alex O', salary: 5250, increase: false},
+        {name: 'Ksenya S', salary: 4800, increase: true},
+        {name: 'John D', salary: 3000, increase: false}
+    ];
+
     return (
         <div className="app">
             <AppInfo/>
@@ -16,7 +23,7 @@ function App() {
                 <AppFilter/>
             </div>
 
-            <EmployeesList/>
+            <EmployeesList data={data}/> {/* Передаем в компонент масссив с данными */}
             <EmpolyeesAddForm/>
         </div>
     );
