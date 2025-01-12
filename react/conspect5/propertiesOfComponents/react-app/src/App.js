@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 
 function WhoAmI ({name, surname, link}) { /* пропсы и так всегда есть, так что их указвывть как props необязательно */
