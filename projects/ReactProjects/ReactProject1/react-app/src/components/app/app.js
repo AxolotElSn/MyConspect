@@ -1,3 +1,5 @@
+import {Component} from 'react';
+
 import AppInfo from '../app-info/app-info';
 import FindPanel from '../find-panel/find-panel';
 import AppFilter from '../app-filter/app-filter';
@@ -6,27 +8,73 @@ import EmpolyeesAddForm from '../employees-add-form/employees-add-form';
 
 import './app.css';
 
-function App() {
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [ /* это мы имитируем что эти данные с сервера пришли */
+                {name: 'Alex O', salary: 5250, increase: false, id: 1},
+                {name: 'Ksenya S', salary: 4800, increase: true, id: 2},
+                {name: 'John D', salary: 3000, increase: false, id: 3}
+            ]
+        }
+        this.maxId = 4;
+    }
 
-    const data = [ /* это мы имитируем что эти данные с сервера пришли */
-        {name: 'Alex O', salary: 5250, increase: false, id: 1},
-        {name: 'Ksenya S', salary: 4800, increase: true, id: 2},
-        {name: 'John D', salary: 3000, increase: false, id: 3}
-    ];
+    deleteItem = (id) => {
+        this.setState(({data}) => {
+            /* мы не можем напрямую изменять state, мы должны скопировать data и менять копию, иначе будут баги */
+            
+            // метод 1
+            // const index = data.findIndex(element => element.id === id); /* метод массива который позвращает индекс элемента если ф-ия вернет true*/
+            // const before = data.slice(0, index) /* копируем массив с 0 элемента до какого нам нужно (index это будет тот элемент на который мы кликнули на корзину) */
+            // const after = data.slice(index + 1) /* а тут мы пропускаем элемент на который мы кликнули и копируем остальную часть массива без этого элемента */ /* то есть эти переменные в сумме дают наш массив без того элемента на который мы кликнули */
 
-    return (
-        <div className="app">
-            <AppInfo/>
+            // const newArr = [...before, ...after]; /* ну а тут мы создаем новый массив в котором не будет элемента на который мы кликнули */
 
-            <div className="find-panel">
-                <FindPanel/>
-                <AppFilter/>
+            // return {
+            //     data: newArr
+            // }
+
+            //метод 2
+            return {
+                data: data.filter(item => item.id !== id) /* то есть filter вернет массив без удаленного элемента */ /* то есть мы перебираем каждый объекти в массиве и исключаем элемент на id которого мы кликнули. Иначе говоря останутся только те элементы id которых не совпадают с id на котрорый мы кликнули */
+            }
+        })
+    }
+
+    addItem = (name, salary) => {
+        const newItem = {
+            name, 
+            salary,
+            increase: false,
+            id: this.maxId++
+        }
+        this.setState(({data}) => {
+            const newArr = [...data, newItem];
+            return {
+                data: newArr
+            }
+        });
+    }
+
+    render() {
+        return (
+            <div className="app">
+                <AppInfo/>
+    
+                <div className="find-panel">
+                    <FindPanel/>
+                    <AppFilter/>
+                </div>
+    
+                <EmployeesList 
+                data={this.state.data} /* Передаем в компонент масссив с данными */
+                onDelete={this.deleteItem}/> {/* тут мы ф-ию передаем как пропс (свойство) через onDelete получается от самого старшего компонента в компонент EmployeesList (мы передаем id)*/}
+                <EmpolyeesAddForm onAdd={this.addItem}/>
             </div>
-
-            <EmployeesList data={data}/> {/* Передаем в компонент масссив с данными */}
-            <EmpolyeesAddForm/>
-        </div>
-    );
+        )
+    }
 }
 
 export default App;

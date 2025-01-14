@@ -11,4 +11,16 @@ if (!a) {
     console.log(a);
 }
 
+const arr = [
+    a= 1,
+    b= 2,
+    c= true,
+    ahaha= 'string ahaha',
+    d= 505,
+    e= {a:'kia k5',
+        b: 'bmw f 90',
+        c: 'ahaha'
+    }
+]
 
+console.log(...arr);// 1 2 true string ahaha 505 { a: 'kia k5', b: 'bmw f 90', c: 'ahaha' }
