@@ -13,9 +13,9 @@ class App extends Component {
         super(props);
         this.state = {
             data: [ /* это мы имитируем что эти данные с сервера пришли */
-                {name: 'Alex O', salary: 5250, increase: false, id: 1},
-                {name: 'Ksenya S', salary: 4800, increase: true, id: 2},
-                {name: 'John D', salary: 3000, increase: false, id: 3}
+                {name: 'Alex O', salary: 5250, increase: false, star: true, id: 1},
+                {name: 'Ksenya S', salary: 4800, increase: true, star: false, id: 2},
+                {name: 'John D', salary: 3000, increase: false, star: false, id: 3}
             ]
         }
         this.maxId = 4;
@@ -48,6 +48,7 @@ class App extends Component {
             name, 
             salary,
             increase: false,
+            star: false,
             id: this.maxId++
         }
         this.setState(({data}) => {
@@ -58,10 +59,40 @@ class App extends Component {
         });
     }
 
+    onToggleProp = (id, prop) => {
+        // способ 1
+        // this.setState(({data}) => {
+            // const index = data.findIndex(element => element.id === id);
+
+            // const old = data[index];
+            // const newItem = {...old, increase: !old.increase};
+            // const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
+
+            // return {
+            //     data: newArr
+            // }
+        // })
+
+        // способ 2
+        this.setState(({data}) => ({
+            data: data.map(item => {
+                if (item.id === id) {
+                    return {...item, [prop]: !item[prop]}
+                }
+                return item;
+            })
+        }))
+    }
+
     render() {
+        const employees = this.state.data.length;
+        const increased = this.state.data.filter(item => item.increase).length;
+
         return (
             <div className="app">
-                <AppInfo/>
+                <AppInfo
+                employees={employees}
+                increased={increased}/>
     
                 <div className="find-panel">
                     <FindPanel/>
@@ -70,7 +101,9 @@ class App extends Component {
     
                 <EmployeesList 
                 data={this.state.data} /* Передаем в компонент масссив с данными */
-                onDelete={this.deleteItem}/> {/* тут мы ф-ию передаем как пропс (свойство) через onDelete получается от самого старшего компонента в компонент EmployeesList (мы передаем id)*/}
+                onDelete={this.deleteItem} /* тут мы ф-ию передаем как пропс (свойство) через onDelete получается от самого старшего компонента в компонент EmployeesList (мы передаем id)*/
+                onToggleProp={this.onToggleProp}/>
+
                 <EmpolyeesAddForm onAdd={this.addItem}/>
             </div>
         )
