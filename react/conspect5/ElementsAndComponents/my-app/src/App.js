@@ -42,7 +42,7 @@ function Btn() {
   const text = 'Log in .-.';
   const logged = true;
 
-  return <button>{logged ? 'Enter' : text}</button> /* если пользователь залогинин, то enter, иначе text */
+  return <button>{logged ? 'Enter' : text}</button> /* если пользователь залогинин, то enter, иначе text */ /* мы не можем писапть if else внутри фигурных скобок в выражении. Мы должнв пользоваться именно тернарным оператором */
   // return <button>{res()}</button>
   // return <button>{p}</button>
   
