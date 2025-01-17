@@ -5,7 +5,7 @@ const EmployeesListItem = (props) => {
 
     let classNames = "list-group-item d-flex justify-content-between";
 
-    if (increase) { /* increase это класс который мы написали в css. Он выделяет цветом если есть премия */
+    if (increase) { /* increase это класс который мы написали в css. Он выделяет цветом если есть премия (печенька которая) */
         classNames += ' increase' /* важно в начале поставить пробел */
     }
     if (star) {
