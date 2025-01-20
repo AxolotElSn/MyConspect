@@ -52,7 +52,7 @@ class App extends Component {
             id: this.maxId++
         }
         this.setState(({data}) => {
-            const newArr = [...data, newItem];
+            const newArr = [...data, newItem]; /* в конец старого массива добавляем новый элемент */
             return {
                 data: newArr
             }
@@ -62,10 +62,10 @@ class App extends Component {
     onToggleProp = (id, prop) => {
         // способ 1
         // this.setState(({data}) => {
-            // const index = data.findIndex(element => element.id === id);
+            // const index = data.findIndex(element => element.id === id); /* то есть в index запишется объект с нашим индексом */
 
             // const old = data[index];
-            // const newItem = {...old, increase: !old.increase};
+            // const newItem = {...old, increase: !old.increase}; /* ну а тут сы делаем новый элемент с противоположным increase */
             // const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
 
             // return {
@@ -77,7 +77,7 @@ class App extends Component {
         this.setState(({data}) => ({
             data: data.map(item => {
                 if (item.id === id) {
-                    return {...item, [prop]: !item[prop]}
+                    return {...item, [prop]: !item[prop]} /* то есть если id элемента совпадает с id элемента на который мы кликнули, то возвращаем этот элемент с противоположными prop (increase или star) */
                 }
                 return item;
             })
@@ -85,8 +85,8 @@ class App extends Component {
     }
 
     render() {
-        const employees = this.state.data.length;
-        const increased = this.state.data.filter(item => item.increase).length;
+        const employees = this.state.data.length; /* общее число сотрудников */
+        const increased = this.state.data.filter(item => item.increase).length; /* сотрудники с премией */
 
         return (
             <div className="app">

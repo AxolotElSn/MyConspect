@@ -5,7 +5,7 @@ const EmployeesListItem = (props) => {
 
     let classNames = "list-group-item d-flex justify-content-between";
 
-    if (increase) { /* increase это класс который мы написали в css. Он выделяет цветом если есть премия (печенька которая) */
+    if (increase) { /* increase это класс который мы написали в css. Он выделяет цветом если есть премия (печенька которая) */ /* если печенька не активна, то добавляем класс и она становится активной и наоборот */
         classNames += ' increase' /* важно в начале поставить пробел */
     }
     if (star) {
@@ -20,8 +20,8 @@ const EmployeesListItem = (props) => {
             <div className="d-flex justify-content-center align-items-center">
                 <button type="button"
                     className="btn-cookie btn-sm"
-                    onClick={onToggleProp}
-                    data-toggle="increase">
+                    onClick={onToggleProp} /* при клике мы вызываем обработчик onToggleProp передавая значения data-toggle */
+                    data-toggle="increase"> {/* делаем дата атрибуты по которым будем передавать что надо менять */}
                     <i className="fas fa-cookie"></i> {/* иконка печеньки (премия типа) */}
                 </button>
 

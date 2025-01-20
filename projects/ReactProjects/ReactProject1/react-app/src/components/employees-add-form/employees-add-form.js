@@ -13,14 +13,14 @@ class EmpolyeesAddForm extends Component {
 
     onValueChange = (e) => {
         this.setState({
-            [e.target.name] : e.target.value
+            [e.target.name] : e.target.value /* мы достучались до атрибута name и записываем то что мы ввели в поле value (name, salary), в state */
         })
     }
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.onAdd(this.state.name, this.state.salary);
-        this.setState({
+        this.props.onAdd(this.state.name, this.state.salary); /* по сути мы передаем то что ввели как аргументы и вызываем тут метод addItem через onAdd */
+        this.setState({ /* это для того чтоб форма очищалась */
             name: '',
             salary: ''
         })
