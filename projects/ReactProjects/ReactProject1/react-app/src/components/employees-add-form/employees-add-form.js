@@ -9,7 +9,10 @@ class EmpolyeesAddForm extends Component {
             name: '',
             salary: ''
         }
+        this.classNames = "form-control new-post-label";
     }
+
+    
 
     onValueChange = (e) => {
         this.setState({
@@ -19,6 +22,10 @@ class EmpolyeesAddForm extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
+        if (this.state.name.length < 2 || !this.state.salary) {
+            alert('Введите данные правильно');
+            return;
+        };
         this.props.onAdd(this.state.name, this.state.salary); /* по сути мы передаем то что ввели как аргументы и вызываем тут метод addItem через onAdd */
         this.setState({ /* это для того чтоб форма очищалась */
             name: '',
@@ -36,13 +43,13 @@ class EmpolyeesAddForm extends Component {
                     className="add-form d-flex"
                     onSubmit = {this.onSubmit}>
                     <input type="text" /* теперь то что мы вводим в эти инпуты контролируется именно реактом это называется управляемый элемент. Это дает нам что интерфейс будет мгновенно реагировать га все изменения. Потому что state связан с ui */
-                           className="form-control new-post-label"
+                           className={this.classNames}
                            placeholder="Как его зовут?"
                            name="name"
                            value={name}
                            onChange={this.onValueChange}/>
                     <input type="number"
-                           className="form-control new-post-label"
+                           className={this.classNames}
                            placeholder="З/П в $?"
                            name="salary"
                            value={salary}
