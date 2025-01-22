@@ -16,7 +16,9 @@ class App extends Component {
                 {name: 'Alex O', salary: 5250, increase: false, star: true, id: 1},
                 {name: 'Ksenya S', salary: 4800, increase: true, star: false, id: 2},
                 {name: 'John D', salary: 3000, increase: false, star: false, id: 3}
-            ]
+            ],
+            find: '',
+            filter: 'all'
         }
         this.maxId = 4;
     }
@@ -84,9 +86,40 @@ class App extends Component {
         }))
     }
 
+    findEmpl = (items, find) => { /* строчка что ищем и массив данных который фильтруем */
+        if (find.lengtn === 0) {
+            return items;
+        }
+
+        return items.filter(item => {
+            return item.name.indexOf(find) > -1 /* indexOf() это метод, который ищет указанный элемент в массиве или строке */ /* если метод ничего не найдет, то он возвращает -1. По этому у нас такая проверка что фильтр возвращает только те элементы, которые больше -1 */
+        })
+    }
+
+    onUpdateSearch = (find) => {
+        this.setState({find});
+    }
+
+    filterPost = (items, filter) => {
+        switch (filter) {
+            case 'star' :
+                return items.filter(item => item.star); /* фильтруем только те где star true */
+            case 'moreThen1000':
+                return items.filter(item => item.salary > 1000);
+            default:
+                return items;
+        }
+    }
+
+    onFilterSelect = (filter) => {
+        this.setState({filter});
+    }
+
     render() {
-        const employees = this.state.data.length; /* общее число сотрудников */
-        const increased = this.state.data.filter(item => item.increase).length; /* сотрудники с премией */
+        const {data, find, filter} = this.state,
+               employees = this.state.data.length, /* общее число сотрудников */
+               increased = this.state.data.filter(item => item.increase).length, /* сотрудники с премией */
+               visibleData = this.filterPost(this.findEmpl(data, find), filter) /* то есть мы фильтруем отфильтпрванные данные. Тначе говоря мы одновременно работаем и с формой поиска и с фильтрующими кнопками */ 
 
         return (
             <div className="app">
@@ -95,12 +128,12 @@ class App extends Component {
                 increased={increased}/>
     
                 <div className="find-panel">
-                    <FindPanel/>
-                    <AppFilter/>
+                    <FindPanel onUpdateSearch={this.onUpdateSearch}/>
+                    <AppFilter filter={filter} onFilterSelect={this.onFilterSelect}/>
                 </div>
     
                 <EmployeesList 
-                data={this.state.data} /* Передаем в компонент масссив с данными */
+                data={visibleData} /* Передаем в компонент масссив с данными */
                 onDelete={this.deleteItem} /* тут мы ф-ию передаем как пропс (свойство) через onDelete получается от самого старшего компонента в компонент EmployeesList (мы передаем id)*/
                 onToggleProp={this.onToggleProp}/>
 
