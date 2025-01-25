@@ -17,7 +17,7 @@ const EmployeesListItem = (props) => {
             <span className="list-group-item-label"
                   onClick={onToggleProp}
 				  data-toggle="star"
-				  style={{fontSize: 20, color: 'red'}}>{name}</span> {/* так можем накидывать инлайн стили. Но только в виде объекьта */}
+				  style={{fontSize: 22}}>{name}</span> {/* так можем накидывать инлайн стили. Но только в виде объекьта */}
             <input type="text" className="list-group-item-input" defaultValue={salary + '$'}/>
             <div className="d-flex justify-content-center align-items-center">
                 <button type="button"
