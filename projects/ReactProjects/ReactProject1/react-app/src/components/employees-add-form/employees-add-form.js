@@ -4,16 +4,12 @@ import {Component} from 'react'
 import './employees-add-form.scss' /* надо поставить sass */
 
 class EmpolyeesAddForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: '',
-            salary: ''
-        }
-        this.classNames = "form-control new-post-label";
-    }
 
-    
+    state = { /* можно не делать конструктор оказывается */
+        name: '',
+        salary: ''
+    }
+    classNames = "form-control new-post-label";
 
     onValueChange = (e) => {
         this.setState({
@@ -33,6 +29,12 @@ class EmpolyeesAddForm extends Component {
             salary: ''
         })
     }
+
+    static onLog = () => {
+        console.log('Hey');
+    }
+
+    static logged = 'on';
 
     render() {
         const {name, salary} = this.state;
@@ -63,5 +65,9 @@ class EmpolyeesAddForm extends Component {
         );
     }
 }
+
+// EmpolyeesAddForm.onValueChange(); /* Мы не можем так обратиться к методу потому что он не статический */
+EmpolyeesAddForm.onLog(); /* мы можем так обращаться к статическим методам класса */
+console.log(EmpolyeesAddForm.logged);
 
 export default EmpolyeesAddForm;
