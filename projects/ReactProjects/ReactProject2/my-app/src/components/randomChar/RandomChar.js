@@ -21,6 +21,7 @@ class RandomChar extends Component {
 
     updateChar = () => {
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000); // для начала мы округляем до целого числа, потом записываем в id рандомное число в диапазоне от 1011400 до 1011000
+        console.log(id)
         this.marvelService
             // .getAllCaracters()
             // .then(res => console.log(res))
