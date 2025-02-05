@@ -1,4 +1,6 @@
 import { Component } from 'react';
+import Spinner from '../spinner/Spinner';
+import ErrorMessage from '../errorMessage/ErrorMessage';
 import MarvelService from '../../services/MarverService';
 
 import './randomChar.scss';
@@ -10,16 +12,27 @@ class RandomChar extends Component {
         this.updateChar(); // так делать плохо, потому что мы вызываем метод еще до того как была построена верстка (исправим скоро)
     }
     state = {
-        char: {}
+        char: {},
+        loading: true,
+        error: false
     }
 
     marvelService = new MarvelService();
 
-    onCharLoaded = (char) => {
-        this.setState({char})
+    onCharLoaded = (char) => { // загрузка героев
+        this.setState({
+            char, // объект с героем который мы получаем
+            loading: false}) // получается тут как только данные загрузились, loadind становится false
     }
 
-    updateChar = () => {
+    onError = () => { // метод выкидывает ошибку, если герой по id не найден
+        this.setState({
+            loading: false,
+            error: true
+        })
+    }
+
+    updateChar = () => { // метод обращается к сервису для получения персонажа
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000); // для начала мы округляем до целого числа, потом записываем в id рандомное число в диапазоне от 1011400 до 1011000
         console.log(id)
         this.marvelService
@@ -27,29 +40,20 @@ class RandomChar extends Component {
             // .then(res => console.log(res))
             .getCaracter(id)
             .then(this.onCharLoaded)
+            .catch(this.onError);
     }
 
     render() {
-        const {char: {name, description, thumbnail, homepage, wiki}} = this.state;
+        const {char, loading, error} = this.state;
+        const spinner = loading ? <Spinner/> : null;
+        const errorMessage = error ? <ErrorMessage/> : null;
+        const content = !(loading || error) ? <View char={char}/> : null // если сейчас нет загрузки или нет ошибки, то возвращаем компонент View, иначе null
+
         return (
             <div className="randomchar">
-                <div className="randomchar__block">
-                    <img src={thumbnail} alt="Random character" className="randomchar__img"/>
-                    <div className="randomchar__info">
-                        <p className="randomchar__name">{name}</p>
-                        <p className="randomchar__descr">
-                            {description}
-                        </p>
-                        <div className="randomchar__btns">
-                            <a href={homepage} className="button button__main">
-                                <div className="inner">homepage</div>
-                            </a>
-                            <a href={wiki} className="button button__secondary">
-                                <div className="inner">Wiki</div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                {errorMessage}
+                {spinner}
+                {content}
                 <div className="randomchar__static">
                     <p className="randomchar__title">
                         Random character for today!<br/>
@@ -66,6 +70,30 @@ class RandomChar extends Component {
             </div>
         )
     }
+}
+
+const View = ({char}) => { // просто отдельный компонент который просто выводит верстку. Сдедали для удобства, потому что в основном компоненте логика спинера
+    const {name, description, thumbnail, homepage, wiki} = char;
+
+    return(
+        <div className="randomchar__block">
+            <img src={thumbnail} alt="Random character" className="randomchar__img"/>
+            <div className="randomchar__info">
+                <p className="randomchar__name">{name}</p>
+                <p className="randomchar__descr">
+                    {description}
+                </p>
+                <div className="randomchar__btns">
+                    <a href={homepage} className="button button__main">
+                        <div className="inner">homepage</div>
+                    </a>
+                    <a href={wiki} className="button button__secondary">
+                        <div className="inner">Wiki</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    )
 }
 
 export default RandomChar;
