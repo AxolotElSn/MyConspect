@@ -18,7 +18,7 @@ class MarvelService {
 		const res = await this.getResourse(`${this._apiBase}characters?limit=9&offset=210&${this._akiKey}`);
 		return res.data.results.map(this._transformCharacter) // тут мы получаем огромный объект, соответственно перебираем его при помощи map 
 	}
-	// 1011051 - id норм персонажа для теста если что
+	// 1011051 1011311 - id норм персонажей для теста если что
 	getCaracter = async (id) => { // получаем одного героя
 		const res = await this.getResourse(`${this._apiBase}characters/${id}?${this._akiKey}`);
 		return this._transformCharacter(res.data.results[0]) // то есть из этого метода нам возвращаются наши красивые данные которые нам нужны
