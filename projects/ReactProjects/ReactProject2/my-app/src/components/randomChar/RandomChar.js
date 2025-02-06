@@ -7,10 +7,10 @@ import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
 
 class RandomChar extends Component {
-    constructor(props) {
-        super(props);
-        this.updateChar(); // так делать плохо, потому что мы вызываем метод еще до того как была построена верстка (исправим скоро)
-    }
+    // constructor(props) {
+    //     super(props);
+    //     /* this.updateChar(); */ // так делать плохо, потому что мы вызываем метод еще до того как была построена верстка (исправим скоро). Из за этого могут быть баги с запросами
+    // }
     state = {
         char: {},
         loading: true,
@@ -18,6 +18,15 @@ class RandomChar extends Component {
     }
 
     marvelService = new MarvelService();
+
+    componentDidMount() { // этот метод вызывается как только отрисовался render()
+        this.updateChar();
+        this.timerId = setInterval(this.updateChar, 25000)
+    }
+
+    componentWillUnmount() { /* а этот мектод вызывается когда компонет пропадает со страницы */
+        clearInterval(this.timerId);
+    }
 
     onCharLoaded = (char) => { // загрузка героев
         this.setState({
