@@ -34,6 +34,12 @@ class RandomChar extends Component {
             loading: false}) // получается тут как только данные загрузились, loadind становится false
     }
 
+    onCharLoading = () => {
+        this.setState({
+            loading: true
+        })
+    }
+
     onError = () => { // метод выкидывает ошибку, если герой по id не найден
         this.setState({
             loading: false,
@@ -43,12 +49,13 @@ class RandomChar extends Component {
 
     updateChar = () => { // метод обращается к сервису для получения персонажа
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000); // для начала мы округляем до целого числа, потом записываем в id рандомное число в диапазоне от 1011400 до 1011000
-        console.log(id)
+        console.log(id);
+        this.onCharLoading(); // То есть когда мы запускаем обновление наших персонажей, для начала мы запустим спинер, до того момента пока не будет результат
         this.marvelService
             // .getAllCaracters()
             // .then(res => console.log(res))
-            .getCaracter(id)
-            .then(this.onCharLoaded)
+            .getCharacter(id)
+            .then(this.onCharLoaded) // а тут спинер отключится
             .catch(this.onError);
     }
 
@@ -71,7 +78,7 @@ class RandomChar extends Component {
                     <p className="randomchar__title">
                         Or choose another one
                     </p>
-                    <button className="button button__main">
+                    <button onClick={this.updateChar} className="button button__main">
                         <div className="inner">try it</div>
                     </button>
                     <img src={mjolnir} alt="mjolnir" className="randomchar__decoration"/>
@@ -83,10 +90,14 @@ class RandomChar extends Component {
 
 const View = ({char}) => { // просто отдельный компонент который просто выводит верстку. Сдедали для удобства, потому что в основном компоненте логика спинера
     const {name, description, thumbnail, homepage, wiki} = char;
+    let imgStyle = {'objectFit' : 'cover'}
+    if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
+        imgStyle = {'objectFit' : 'contain'}
+    }
 
     return(
         <div className="randomchar__block">
-            <img src={thumbnail} alt="Random character" className="randomchar__img"/>
+            <img src={thumbnail} alt="Random character" className="randomchar__img" style= {imgStyle}/>
             <div className="randomchar__info">
                 <p className="randomchar__name">{name}</p>
                 <p className="randomchar__descr">
