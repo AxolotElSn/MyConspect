@@ -31,7 +31,8 @@ class MarvelService {
             description: char.description ? `${char.description.slice(0, 210)}...` : 'There is no description for this character Sorry .-.',
             thumbnail: char.thumbnail.path + '.' + char.thumbnail.extension, // тут работает так же, только thumbnail это объект с полями path - путь к картинке и extension - ее разширение. Нам надо сделать единый путь, по этому мы так складываем эти строки
             homepage: char.urls[0].url, // urls - массив с двумя объектами который относятся к homepage и wiki соответственно
-            wiki: char.urls[1].url
+            wiki: char.urls[1].url,
+			comics: char.comics.items
 		}
 	}
 }

@@ -34,7 +34,7 @@ class RandomChar extends Component {
             loading: false}) // получается тут как только данные загрузились, loadind становится false
     }
 
-    onCharLoading = () => {
+    onCharLoading = () => { // просто загрузка
         this.setState({
             loading: true
         })
