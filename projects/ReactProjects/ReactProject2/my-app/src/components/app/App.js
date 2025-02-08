@@ -3,6 +3,7 @@ import AppHeader from "../appHeader/AppHeader";
 import RandomChar from "../randomChar/RandomChar";
 import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
+import ErrorBoundary from "../errorBoundaru/ErrorBoundary";
 
 import decoration from '../../resources/img/vision.png';
 
@@ -23,10 +24,16 @@ class App extends Component {
             <div className="app">
                 <AppHeader/>
                 <main>
-                    <RandomChar/>
+                    <ErrorBoundary>
+                        <RandomChar/>
+                    </ErrorBoundary>
                     <div className="char__content">
-                        <CharList onCharSelected={this.onCharSelected}/> {/* Отсюда мы получаей id героя на которго кликнули и записываем в здешний стейт */}
-                        <CharInfo charId={this.state.selectedChar}/> {/* А тут этот id мы используем */}
+                        <ErrorBoundary>
+                            <CharList onCharSelected={this.onCharSelected}/> {/* Отсюда мы получаей id героя на которго кликнули и записываем в здешний стейт */}
+                        </ErrorBoundary>
+                        <ErrorBoundary> {/* это компонент предохранителя. Он вызывается если в дочернем компоненте есть ошибка */}
+                            <CharInfo charId={this.state.selectedChar}/> {/* А тут этот id мы используем */}
+                        </ErrorBoundary> 
                     </div>
                     <img className="bg-decoration" src={decoration} alt="vision"/>
                 </main>

@@ -28,6 +28,13 @@ class CharInfo extends Component {
         }
     }
 
+    // componentDidCatch(err, info) { // метод вызывается если компонент выкидывает ошибку. err - сама ошибка, info - информация о компоненте в котором произошла ошибка. Но все равно начиная с 16 версии реакта, даже при вызоае этого метода приложение упадет. По этому мы используем предохранители
+    //     console.log(err, info)
+    //     this.setState({
+    //         error: true
+    //     })
+    // }
+
     updateChar = () => {
         const {charId} = this.props;
         if (!charId) {
