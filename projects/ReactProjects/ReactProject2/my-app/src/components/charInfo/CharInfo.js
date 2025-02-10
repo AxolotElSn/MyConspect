@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types'; /* npm i prop-types */
 
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
@@ -130,6 +131,10 @@ const View = ({char}) => {
             </ul>        
         </>
     )
+}
+
+CharInfo.propTypes = { /* propTpypes - библиотека позволяющая делать валидацию. То есть мы четко говорим что charId - должно быть числом */
+    charId: PropTypes.number
 }
 
 export default CharInfo;
