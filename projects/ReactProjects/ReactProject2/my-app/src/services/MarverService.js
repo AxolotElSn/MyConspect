@@ -3,6 +3,7 @@
 class MarvelService {
 	_apiBase = 'https://gateway.marvel.com:443/v1/public/';
 	_akiKey = 'apikey=d12b61c642723d65dcaea7bbf38dbd30'
+	_baseOffset = 210;
 
     getResourse = async (url) => {
 		let res = await fetch(url);
@@ -14,8 +15,8 @@ class MarvelService {
 		return await res.json();
 	}
 
-	getAllCharacters = async () => { // получаем всех героев
-		const res = await this.getResourse(`${this._apiBase}characters?limit=9&offset=210&${this._akiKey}`);
+	getAllCharacters = async (offset = this._baseOffset) => { // получаем всех героев
+		const res = await this.getResourse(`${this._apiBase}characters?limit=9&offset=${offset}&${this._akiKey}`);
 		return res.data.results.map(this._transformCharacter) // тут мы получаем огромный объект, соответственно перебираем его при помощи map 
 	}
 	// 1011051 1011311 - id норм персонажей для теста если что

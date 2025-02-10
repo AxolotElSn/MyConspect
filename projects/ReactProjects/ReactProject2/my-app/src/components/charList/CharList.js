@@ -8,23 +8,46 @@ class CharList extends Component {
 
     state = {
         charList: [],
-        loading: true,
-        error: false
+        loading: true, // это первичная загрузка
+        error: false,
+        newItemLoading: false, // а это загрузка по кнопке
+        offset: 210,
+        charEnded: false
     }
     
     marvelService = new MarvelService();
 
     componentDidMount() {
-        this.marvelService.getAllCharacters()
+        this.onRequest();
+    }
+
+    onRequest = (offset) => { // этот метод отвечает за запрос на сервер. В первый раз он вызывается с пустым аргументом, по этому бкркт стандартное значение _baseOffset, в последующих вызовах 
+        this.onCharListLoading();
+        this.marvelService.getAllCharacters(offset)
             .then(this.onCharListLoaded)
             .catch(this.onError)
     }
 
-    onCharListLoaded = (charList) => { // загрузка героев
+    onCharListLoading = () => {
         this.setState({
-            charList,
-            loading: false
+            newItemLoading: true
         })
+    }
+
+    onCharListLoaded = (newCharList) => { // загрузка героев (а тут newCharList это массив с новыми героями)
+
+        let ended = false;
+        if (newCharList.length < 9) {
+            ended = true;
+        }
+
+        this.setState(({offset, charList}) => ({ // charList - объект с нашими персонажами до изменения
+            charList: [...charList, ...newCharList], // старые и новые элементы. В первый запуск в старых просто пустой массив из стейта, так что отрисуется просто новые элементы, а потом новые превращаются в старые и к ним добавляются другие новые
+            loading: false,
+            newItemLoading: false,
+            offset: offset + 9,
+            charEnded: ended
+        }))
     }
 
     onError = () => { // ошибка, если герой не найден
@@ -61,7 +84,7 @@ class CharList extends Component {
 
     render() {
 
-        const {charList, loading, error} = this.state;
+        const {charList, loading, error, offset, newItemLoading, charEnded} = this.state;
         
         const items = this.renderItems(charList);
 
@@ -74,7 +97,11 @@ class CharList extends Component {
                 {errorMessage}
                 {spinner}
                 {content}
-                <button className="button button__main button__long">
+                <button
+                    className="button button__main button__long"
+                    disabled={newItemLoading}
+                    style={{'display': charEnded ? 'none' : 'block'}}
+                    onClick={() => this.onRequest(offset)}>
                     <div className="inner">load more</div>
                 </button>
             </div>
