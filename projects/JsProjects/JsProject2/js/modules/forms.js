@@ -123,4 +123,5 @@ function forms(formSelector ,modalTimerId) {
 
 }
 
+// forms.js
 export default forms;
