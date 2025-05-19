@@ -185,6 +185,55 @@
             </div>
         </div>
     </div>
+// table и скрипт удалить потом
+    <table>
+    <caption>Расписание тренировок на неделю</caption>
+    <thead>
+      <tr>
+        <th>Время</th>
+        <th>Понедельник</th>
+        <th>Вторник</th>
+        <th>Среда</th>
+        <th>Четверг</th>
+        <th>Пятница</th>
+        <th>Суббота</th>
+        <th>Воскресенье</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>08:00 - 09:00</td>
+        <td>Йога</td>
+        <td>Кардио</td>
+        <td>Йога</td>
+        <td>Силовая</td>
+        <td>Кардио</td>
+        <td>Отдых</td>
+        <td>Отдых</td>
+      </tr>
+      <tr>
+        <td>10:00 - 11:00</td>
+        <td>Силовая</td>
+        <td>Йога</td>
+        <td>Кардио</td>
+        <td>Йога</td>
+        <td>Силовая</td>
+        <td>Кардио</td>
+        <td>Йога</td>
+      </tr>
+      <tr>
+        <td>18:00 - 19:00</td>
+        <td>Кардио</td>
+        <td>Силовая</td>
+        <td>Йога</td>
+        <td>Кардио</td>
+        <td>Йога</td>
+        <td>Силовая</td>
+        <td>Отдых</td>
+      </tr>
+      <button>получить данные по тренеровке</button>
+    </tbody>
+  </table>
 
     <div class="divider"></div>
 
@@ -282,5 +331,45 @@
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="js/bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  // URL API для получения данных
+  const API_URL = 'https://your-backend.com/api/items';
+
+  // Функция для отрисовки данных в таблице
+  function renderTable(data) {
+    const tbody = document.querySelector('#data-table tbody');
+    tbody.innerHTML = ''; // очистить таблицу
+
+    data.forEach(item => {
+      const tr = document.createElement('tr');
+
+      // Создаём ячейки с данными, подставляй поля из твоего объекта
+      tr.innerHTML = `
+        <td>${item.id}</td>
+        <td>${item.name}</td>
+        <td>${item.price}</td>
+        <td>${item.description}</td>
+      `;
+
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Запрос к API через axios
+  function fetchData() {
+    axios.get(API_URL)
+      .then(response => {
+        // Предполагаем, что данные лежат в response.data
+        renderTable(response.data);
+      })
+      .catch(error => {
+        console.error('Ошибка при загрузке данных:', error);
+      });
+  }
+
+  // Запускаем загрузку при загрузке страницы
+  document.addEventListener('DOMContentLoaded', fetchData);
+</script>
 </body>
 </html>
