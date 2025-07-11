@@ -1,0 +1,31 @@
+* {
+    box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+.promo {
+    min-height: 800px;
+    background: url('../img/Main_bg.jpeg') center center / cover no-repeat;
+    padding: 22px, 53px; 
+}
+
+.logo__img {
+    display: block;
+    margin: 0 auto;
+}
+
+.logo__text {
+    text-align: center;
+    margin-top: 13px;
+    color: #FFFFFF; 
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    text-transform: uppercase;
+}
