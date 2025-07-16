@@ -1,0 +1,25 @@
+<svg width="50.000000" height="49.933350" viewBox="0 0 50 49.9333" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<clipPath id="clip235903_93">
+			<rect id="chart" rx="0.000000" width="49.000000" height="48.933422" transform="translate(0.500000 0.500000)" fill="white" fill-opacity="0"/>
+		</clipPath>
+	</defs>
+	<rect id="chart" rx="0.000000" width="49.000000" height="48.933422" transform="translate(0.500000 0.500000)" fill="#FFFFFF" fill-opacity="0"/>
+	<g clip-path="url(#clip235903_93)">
+		<path id="bar_chart_sorted" d="M50 0L0 0L0 50L50 50L50 0Z" fill="#FFFBDB" fill-opacity="1.000000" fill-rule="nonzero"/>
+		<path id="bar_chart_sorted" d="M0 0L50 0L50 50L0 50L0 0ZM1 49L1 1L49 1L49 49L1 49Z" fill="#000000" fill-opacity="0.580000" fill-rule="evenodd"/>
+		<path id="Vector" d="M38.85 8.78L31.91 8.78L31.91 41.14L38.85 41.14L38.85 8.78Z" fill="#1C4E80" fill-opacity="1.000000" fill-rule="nonzero"/>
+		<path id="Vector" d="M38.85 8.78L38.85 41.14L31.91 41.14L31.91 8.78L38.85 8.78Z" stroke="#000000" stroke-opacity="1.000000" stroke-width="1.000000" stroke-linejoin="round"/>
+		<path id="Vector" d="M15.76 22.65L8.82 22.65L8.82 41.14L15.76 41.14L15.76 22.65Z" fill="#EA6A47" fill-opacity="1.000000" fill-rule="nonzero"/>
+		<path id="Vector" d="M15.76 22.65L15.76 41.14L8.82 41.14L8.82 22.65L15.76 22.65Z" stroke="#000000" stroke-opacity="1.000000" stroke-width="1.000000" stroke-linejoin="round"/>
+		<path id="Vector" d="M27.32 13.4L20.38 13.4L20.38 41.14L27.32 41.14L27.32 13.4Z" fill="#FFFFFF" fill-opacity="1.000000" fill-rule="nonzero"/>
+		<path id="Vector" d="M27.32 13.4L27.32 41.14L20.38 41.14L20.38 13.4L27.32 13.4Z" stroke="#000000" stroke-opacity="1.000000" stroke-width="1.000000" stroke-linejoin="round"/>
+		<path id="Vector" d="M6.42 8.59L4.2 4.16L1.98 8.59L6.42 8.59Z" fill="#202020" fill-opacity="1.000000" fill-rule="evenodd"/>
+		<path id="Vector" d="M41.37 43.55L45.81 45.77L41.37 47.99L41.37 43.55Z" fill="#202020" fill-opacity="1.000000" fill-rule="evenodd"/>
+		<line id="Line 1" x1="3.333313" y1="45.666504" x2="41.666626" y2="45.666504" stroke="#202020" stroke-opacity="1.000000" stroke-width="2.000000"/>
+		<line id="Line 2" x1="4.333313" y1="6.666504" x2="4.333313" y2="45.833252" stroke="#202020" stroke-opacity="1.000000" stroke-width="2.000000"/>
+	</g>
+</svg>
