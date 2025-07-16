@@ -232,5 +232,85 @@
     line-height: 19px;
     text-align: center;
 }
+
+.gift {
+    background-color: #EFEFEF;
+    padding: 80px 0 80px 0;
+}
+
+.gift__img {
+    display: block;
+    margin: 0 auto;
+}
+
+.gift__title {
+    color: rgb(37, 37, 37);
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 150%;
+    margin-top: 80px;
+}
+
+.btn__gift {
+    margin-top: 60px;
+}
  
+.webinar {
+    padding: 50px 0 50px 0;
+    background-color: #0F0B0B;
+}
+
+.webinar__img{
+    display: block;
+    margin: 0 auto;
+}
+
+.title__webinar {
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    font-weight: 500;
+    margin-top: 40px;
+}
+
+.title__colored-webinar {
+    color: rgb(249, 191, 59);
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 36px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+
+.webinar__text {
+    color: rgb(239, 239, 239);
+    font-size: 23px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 20px;
+}
+
+footer {
+    padding: 58px 0 83px 0;
+    background-color: #1A1A1A;
+    text-align: center;
+}
+
+footer a {
+    color: rgb(136, 136, 136);
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 150%;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.separator {
+    display: inline;
+    color: rgb(136, 136, 136);
+}
+
+.number {
+    text-decoration: none;
+}
 
