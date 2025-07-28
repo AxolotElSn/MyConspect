@@ -134,3 +134,70 @@ html {
 		line-height: normal;
 	}
 }
+
+.about {
+	background-color: var(--light-color);
+	padding-top: 80px;
+}
+
+.about__title {
+	color: rgb(34, 31, 32);
+	font-style: italic;
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 15px;
+}
+
+.about__text {
+	width: 1100px;
+	color: rgb(34, 31, 32);
+	margin-top: 20px;
+	font-size: 40px;
+	font-weight: 400;
+	line-height: 48px;
+	span {
+		color: rgb(165, 165, 165);
+	}
+}
+
+.services {
+	display: flex;
+	column-gap: 10px;
+	margin-top: 80px;
+}
+
+.services__items {
+	width: 50%;
+	ul {
+		margin-top: 20px;
+		padding: 0;
+	}
+
+	li {
+		margin-top: 10px;
+		list-style-type: none;
+		color: rgb(34, 31, 32);
+		font-size: 16px;
+		font-weight: 400;
+		line-height: 19px;
+	}
+}
+
+.services__text {
+	width: 50%;
+	color: rgb(34, 31, 32);
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 24px;
+	letter-spacing: 2%;
+}
+
+.services__items-subtitle {
+	color: rgb(34, 31, 32);
+	font-style: italic;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 19px;
+}
+
+
