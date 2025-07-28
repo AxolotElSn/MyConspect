@@ -201,3 +201,25 @@ html {
 }
 
 
+.works {
+	background-color: rgb(245, 245, 247);
+	padding-top: 80px;
+}
+
+.works__grid {
+	margin-top: 50px;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	/* grid-template-rows: repeat(2, 463px) 700px; */
+	grid-template-rows: repeat(2, 1fr) 1.5fr;
+	column-gap: 30px;
+	row-gap: 50px;
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.25);
+	}
+}
+
+
