@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* отличия grid и flex. Flex - главное это сам элемент. В зависимости от его размера, он позиционируется в контейнере. А в grid - главное - контейнер, мы можем четко определить и строки и стлобцы, сразу получается сетка. Контейнер решает как располагаются элементы внутри себя  */
+
+.grid-container {
+    display: grid;
+    /* grid-template-columns: 250px 250px 250px; шаблон колонок для сетки получим 3 колонки по 250 px */
+    /* grid-template-rows: 60px 60px 60px; шаблон для строк. Получим 3 строеи по 60 px */
+    /* grid-template: 60px 60px 60px / 250px 250px 250px; */ /* комбинированное свойство. первые пишем строки, потом колонки */
+    /* gap: 10px 20px; */ /* отступ между строками и колонками */
+}
+
+.grid-container {
+    width: 600px;
+    height: 600px;
+    grid-template-columns: repeat(3, 1fr); /* fr - еденица измерения. элементы сетки делят между собой размер контейнера и занимают определенный размер */
+    grid-template-rows: 1fr 1fr 1fr; /* repeat(3, 1fr) форма записи через ф-ию */
+}
+
+.grid-elem {
+    /* height: 50px; */
+    background-color: rgba(1, 1, 96, 1);
+    color: #fff;
+    line-height: 50px;
+    text-align: center;
+    font-size: 26px;
+    border: 1px solid #000;
+    border-radius: 4px;
+}
