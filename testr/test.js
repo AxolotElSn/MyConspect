@@ -1,12 +1,12 @@
+function makeCounter() {
+  let count = 10;
+  return () => count++;
+}
 
-const obj = {
-    a: 10,
-    b: 30
-};
+let counter1 = makeCounter();
+let counter2 = makeCounter();
 
-const d = "c";
-
-obj[d] = 1111;
-
-console.log(obj);
-console.log(obj.c);
+console.log(counter1());
+console.log(counter1());
+console.log(counter2());
+console.log(counter2()); 
