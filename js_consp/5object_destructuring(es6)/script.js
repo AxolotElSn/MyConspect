@@ -9,7 +9,6 @@ const options = {
         bg: 'red'
     }
 };
-
 // delete options.name;
 // console.log(options);
 
