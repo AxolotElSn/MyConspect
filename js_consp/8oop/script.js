@@ -1,3 +1,4 @@
+// Основы ООП
 'use surict';
 
 let str = 'some';

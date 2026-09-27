@@ -1,3 +1,4 @@
+// Динамическая типизация
 'use strict';
 
 // Превращаем в строку
@@ -48,5 +49,12 @@ if (switcher) {
 
 //2)
 
-console.log(typeof(Boolean('4')))
+console.log(typeof(Boolean('4'))) // boolean
+
+// 3)
+
+console.log(typeof(!!'4444444')); // boolean   !! - преобразует значение в boolean
+
+
+
 
