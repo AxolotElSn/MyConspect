@@ -4,6 +4,17 @@
 const p = document.querySelectorAll('p');
 console.log(p);
 
-const script = document.createElement('script'); // Еще один вариант добавления скрипта. Получается что скрипт отработает только после того как он добавитсвя на страницу
-script.src = 'test.js';
-document.body.append(script)
+// const script = document.createElement('script'); // Еще один вариант добавления скрипта. Получается что скрипт отработает только после того как он добавитсвя на страницу
+// script.src = 'test.js';
+// document.body.append(script)
+
+function loadScript(src) {
+    const script = document.createElement('script');
+    script.src = src;
+    script.async = false;
+    document.body.append(script);
+}
+
+loadScript('test.js');
+loadScript('some.js');
+
