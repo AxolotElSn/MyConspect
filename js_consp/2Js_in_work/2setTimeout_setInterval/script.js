@@ -55,7 +55,6 @@ let id = setTimeout(function log() {
 function myAnimation() {
     const element = document.querySelector('.box');
     let position = 0;
-    let direction = 1;
 
     const id = setInterval(frame, 10);
     function frame() {
