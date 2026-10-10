@@ -87,10 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (t.total <= 0) {
                 clearInterval(timeIntarval);
-                days.innerHTML = '0';
-                hours.innerHTML = '0';
-                minutes.innerHTML = '0';
-                seconds.innerHTML = '0';
+                days.innerHTML = '00';
+                hours.innerHTML = '00';
+                minutes.innerHTML = '00';
+                seconds.innerHTML = '00';
             }
         }
     }
