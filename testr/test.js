@@ -10,3 +10,5 @@ console.log(counter1());
 console.log(counter1());
 console.log(counter2());
 console.log(counter2()); 
+
+bebegi
