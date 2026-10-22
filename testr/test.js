@@ -1,14 +1,26 @@
-function makeCounter() {
-  let count = 10;
-  return () => count++;
+'use strict';
+
+function factorial(n){
+    if (n === 1){
+        return 1;
+    }
+    else{
+         
+        return n * factorial(n - 1);
+    }
+}
+const result = factorial(5); 
+console.log(result); // 24
+
+
+
+function stepen(num, step) {
+  if (step === 1) {
+    return num;
+  } else {
+    return num * stepen(num, step - 1);
+  }
 }
 
-let counter1 = makeCounter();
-let counter2 = makeCounter();
-
-console.log(counter1());
-console.log(counter1());
-console.log(counter2());
-console.log(counter2()); 
-
-bebegi
+const res = stepen(2, 8);
+console.log(res);
